@@ -5,6 +5,29 @@
    Shared by index.html and app.html (app.css adds dashboard styles).
    ========================================================================== */
 
+/* ---------- Self-hosted fonts (latin subset, variable weights) ---------- */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("assets/fonts/inter-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("assets/fonts/playfair-display-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 500 600;
+  font-display: swap;
+  src: url("assets/fonts/playfair-display-italic.woff2") format("woff2");
+}
+
 :root {
   --paper: #F5F5F3;
   --ink: #0B0D0C;
@@ -176,7 +199,7 @@ a.arrow-circle:hover, button.arrow-circle:hover, .pill-cta:hover .arrow-circle, 
   background: var(--ink); color: #fff; font-size: .875rem; font-weight: 500;
   padding: .85rem 2.6rem .85rem 1.8rem; border-radius: 999px;
 }
-.pill-cta .arrow-circle { width: 44px; height: 44px; margin-left: -1.5rem; box-shadow: 0 0 0 4px var(--paper); }
+.pill-cta .arrow-circle { position: relative; z-index: 1; width: 44px; height: 44px; margin-left: -1.5rem; box-shadow: 0 0 0 4px var(--paper); }
 
 /* ---------- Hero ---------- */
 .hero-dot {
@@ -661,7 +684,7 @@ a.arrow-circle:hover, button.arrow-circle:hover, .pill-cta:hover .arrow-circle, 
 .mobile-bar__btn { display: flex; align-items: center; justify-content: center; gap: .4rem; padding: .75rem .4rem; border-radius: 16px; color: #fff; font-size: .8rem; font-weight: 600; }
 .mobile-bar__btn--sos { color: #FF8F92; }
 .mobile-bar__btn--lime { background: var(--lime); color: var(--ink); }
-@media (max-width: 1023px) { body { padding-bottom: 84px; } }
+@media (max-width: 1023px) { .site-footer { padding-bottom: 84px; } }
 
 .to-top {
   position: fixed; right: 20px; bottom: 24px; z-index: 40; width: 50px; height: 50px; border-radius: 50%;
@@ -678,6 +701,92 @@ a.arrow-circle:hover, button.arrow-circle:hover, .pill-cta:hover .arrow-circle, 
 @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 @keyframes shadowPulse { 0%, 100% { transform: scaleX(1); opacity: 1; } 50% { transform: scaleX(.9); opacity: .7; } }
 
+/* ==========================================================================
+   Premium details
+   ========================================================================== */
+
+/* Reading progress under the sticky navbar */
+.scroll-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; pointer-events: none; }
+.scroll-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--lime), #9BD81E); transform: scaleX(0); transform-origin: 0 50%; }
+
+/* Hero: soft glow and a slow photo reveal on load */
+.hero-visual__glow {
+  position: absolute; inset: 10% -6% -6% 10%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(circle at 60% 40%, rgba(199, 243, 58, .55), rgba(199, 243, 58, 0) 65%);
+  filter: blur(40px);
+}
+.hero-visual__frame { box-shadow: 0 50px 100px -40px rgba(11, 13, 12, .35); }
+.hero-visual__img { animation: heroReveal 1.6s var(--ease) both; }
+@keyframes heroReveal { from { transform: scale(1.12); filter: saturate(.6); } }
+
+/* Light sweep across dark pill buttons on hover */
+.pill-cta__label { position: relative; overflow: hidden; }
+.pill-cta__label::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .22) 50%, transparent 70%);
+  transition: transform .8s var(--ease);
+}
+.pill-cta:hover .pill-cta__label::after { transform: translateX(120%); }
+
+/* Specialties marquee */
+.marquee { overflow: hidden; padding: 28px 0 56px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee__track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__group { display: flex; align-items: center; gap: 36px; padding-right: 36px; }
+.marquee__group span { font-family: "Playfair Display", Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.8rem); white-space: nowrap; color: var(--ink); }
+.marquee__group span:nth-child(4n + 3) { color: transparent; -webkit-text-stroke: 1px var(--ink); }
+.marquee__group i { font-style: normal; font-size: 1.2rem; color: #9BD81E; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Testimonials: oversized quote mark */
+.quote-card { position: relative; overflow: hidden; }
+.quote-card::after {
+  content: "\201C"; position: absolute; right: 18px; top: -18px;
+  font-family: "Playfair Display", Georgia, serif; font-size: 9rem; line-height: 1; color: var(--lime); opacity: .35;
+}
+
+/* Phone mockup icons */
+.scr__icon svg { width: 1.1em; height: 1.1em; }
+.scr__go svg { width: 1em; height: 1em; }
+.scr__meal-row b svg { width: 1em; height: 1em; stroke-width: 3; }
+.scr__date span { display: inline-flex; align-items: center; gap: .4em; }
+.scr__date svg { width: 1.1em; height: 1.1em; }
+
+/* Dark footer */
+.site-footer { position: relative; overflow: hidden; background: var(--ink); color: #fff; padding-top: 72px; }
+.footer-cta {
+  display: flex; flex-direction: column; gap: 28px; justify-content: space-between;
+  padding: 40px 32px; border-radius: 32px;
+  background: radial-gradient(circle at 85% 0%, rgba(199, 243, 58, .25), transparent 55%), #151816;
+  border: 1px solid rgba(255, 255, 255, .06);
+}
+@media (min-width: 768px) { .footer-cta { flex-direction: row; align-items: flex-end; padding: 48px 56px; } }
+.btn-ghost-light {
+  display: inline-flex; align-items: center; justify-content: center; padding: calc(.85rem - 1.5px) 1.6rem;
+  border-radius: 999px; border: 1.5px solid rgba(255, 255, 255, .35); color: #fff; font-size: .875rem; font-weight: 500;
+  transition: background .3s, border-color .3s;
+}
+.btn-ghost-light:hover { background: rgba(255, 255, 255, .08); border-color: #fff; }
+.logo--light { color: #fff; }
+.logo--light .logo__tag { background: var(--lime); color: var(--ink); }
+.site-footer .footer-h { color: #fff; }
+.site-footer .footer-list { color: #9A9A96; }
+.site-footer .footer-list a:hover { color: var(--lime); }
+.site-footer .newsletter { background: #1A1D1B; }
+.site-footer .newsletter:focus-within { border-color: var(--lime); }
+.site-footer .newsletter input { color: #fff; }
+.footer-bottom {
+  display: flex; flex-direction: column; gap: 8px; justify-content: space-between;
+  padding: 24px 0; border-top: 1px solid rgba(255, 255, 255, .08); font-size: .75rem; color: #7A7A76;
+}
+@media (min-width: 640px) { .footer-bottom { flex-direction: row; } }
+.footer-wordmark {
+  margin: 0 0 -0.18em; text-align: center; line-height: .8; user-select: none;
+  font-weight: 800; letter-spacing: -.06em; font-size: clamp(5rem, 24vw, 22rem);
+  color: transparent; -webkit-text-stroke: 1px rgba(199, 243, 58, .28);
+  background: linear-gradient(180deg, rgba(199, 243, 58, .16), transparent 80%); -webkit-background-clip: text; background-clip: text;
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -685,4 +794,5 @@ a.arrow-circle:hover, button.arrow-circle:hover, .pill-cta:hover .arrow-circle, 
     transition-duration: .01ms !important; scroll-behavior: auto !important;
   }
   .reveal { opacity: 1; translate: none; }
+  .marquee__track { animation: none; }
 }

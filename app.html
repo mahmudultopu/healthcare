@@ -3,27 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>NEWME Health — Patient Web App</title>
-  <meta name="description" content="Your NEWME Health patient dashboard: appointments, medications, meal plan, water, sleep and vitals trackers, and lab records." />
+  <title>Patient Portal | NEWME Health</title>
+  <meta name="description" content="Your NEWME Health patient portal: appointments, medicines, meal plan, water, sleep and vitals trackers, and lab records." />
   <meta name="theme-color" content="#0B0D0C" />
+  <meta name="color-scheme" content="light" />
+  <meta name="robots" content="noindex" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
-
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { paper: '#F5F5F3', ink: '#0B0D0C', lime: '#C7F33A', mist: '#ECECE9' },
-          fontFamily: { serif: ['"Playfair Display"', 'Georgia', 'serif'], sans: ['Inter', 'system-ui', 'sans-serif'] },
-        },
-      },
-    };
-  </script>
+  <!-- Icons, manifest, fonts and styles (all self-hosted) -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="assets/css/tailwind.css" />
 </head>
 
 <body class="app-body is-loading bg-paper font-sans text-ink antialiased">
@@ -298,7 +293,7 @@
           <div class="view-head">
             <div>
               <h1 class="view-title">Health Trackers</h1>
-              <p class="view-sub">Water, sleep, weight, vitals and meals — all in one place.</p>
+              <p class="view-sub">Water, sleep, weight, vitals and meals in one place.</p>
             </div>
           </div>
 
@@ -411,7 +406,7 @@
                   <tbody id="labRows"></tbody>
                 </table>
               </div>
-              <p class="mt-4 text-xs text-neutral-500">Reviewed by Dr. Min-ji Lee: "Results look good overall. LDL is slightly high — let's recheck in 3 months alongside diet changes."</p>
+              <p class="mt-4 text-xs text-neutral-500">Reviewed by Dr. Min-ji Lee: "Results look good overall. LDL is slightly high, so let's recheck in 3 months alongside diet changes."</p>
             </div>
             <div class="grid gap-6 self-start">
               <div class="card card--pad">

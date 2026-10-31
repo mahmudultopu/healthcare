@@ -405,3 +405,94 @@
 .toast::before { content: "✓"; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 8px; border-radius: 50%; background: var(--lime); color: var(--ink); font-size: .7rem; font-weight: 800; }
 @media (min-width: 1024px) { .toast { bottom: 32px; } }
 @keyframes toastIn { from { opacity: 0; transform: translateY(10px); } }
+
+/* ==========================================================================
+   Glass theme
+   Frosted, translucent surfaces over a slow-moving aurora background.
+   Kept as an override layer so the base styles above stay readable.
+   ========================================================================== */
+:root {
+  --glass: rgba(255, 255, 255, .52);
+  --glass-strong: rgba(255, 255, 255, .7);
+  --glass-soft: rgba(255, 255, 255, .45);
+  --glass-border: rgba(255, 255, 255, .75);
+  --glass-dark: rgba(11, 13, 12, .82);
+  --glass-blur: blur(22px) saturate(170%);
+  --glass-shadow: 0 12px 40px -20px rgba(11, 13, 12, .28), inset 0 1px 0 rgba(255, 255, 255, .6);
+}
+
+.app-body { background: #EDEFE9; isolation: isolate; }
+.app-body::before {
+  content: ""; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 14% 18%, rgba(199, 243, 58, .6), transparent 70%),
+    radial-gradient(34% 30% at 86% 12%, rgba(127, 212, 255, .5), transparent 70%),
+    radial-gradient(40% 40% at 72% 86%, rgba(199, 243, 58, .4), transparent 70%),
+    radial-gradient(30% 30% at 22% 88%, rgba(255, 181, 71, .28), transparent 70%);
+  filter: blur(30px);
+  animation: aurora 26s ease-in-out infinite alternate;
+}
+@keyframes aurora { to { transform: translate3d(3%, -2%, 0) rotate(5deg) scale(1.06); } }
+
+/* Light glass surfaces */
+.card, .target, .meal, .appt-hero, .appt-card, .empty, .user-pill, .icon-btn,
+.date-nav, .seg-tabs, .popover, .activity--white, .dialog__box, .mini-select select {
+  background: var(--glass);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+.meal-panel {
+  background: rgba(255, 255, 255, .32);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, .6);
+}
+.meal, .popover, .dialog__box { background: var(--glass-strong); }
+
+/* Inner rows sit slightly lighter on the glass */
+.med-row, .vital, .rx, .doc-row, .lab-table td, .search-box, .appt-hero__when span,
+.quick-food, .med-row__time, .date-nav__btn:hover, .popover__item:hover {
+  background: var(--glass-soft);
+}
+.doc-row:hover { background: var(--glass-strong); }
+.app-main .field--light input, .app-main .field--light select,
+.dialog .field--light input, .inline-form input, .segmented {
+  background: rgba(255, 255, 255, .55);
+}
+.app-main .field--light input:focus, .app-main .field--light select:focus { background: rgba(255, 255, 255, .85); }
+
+/* Dark glass surfaces */
+.sidebar, .overview, .adherence, .card--ink, .tracker--dark, .activity--dark, .toast {
+  background: var(--glass-dark);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, .08);
+  box-shadow: 0 20px 50px -24px rgba(11, 13, 12, .55), inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.overview { background: radial-gradient(120% 90% at 50% 0%, rgba(199, 243, 58, .14), transparent 60%), var(--glass-dark); }
+.tracker--dark .inline-form input { background: rgba(255, 255, 255, .08); }
+
+/* Lime glass */
+.tracker--lime, .activity--lime {
+  background: linear-gradient(145deg, rgba(212, 250, 85, .92), rgba(199, 243, 58, .78));
+  border: 1px solid rgba(255, 255, 255, .55);
+  box-shadow: 0 18px 40px -22px rgba(120, 160, 10, .6), inset 0 1px 0 rgba(255, 255, 255, .6);
+}
+
+/* Glass highlight sweep on hover for interactive cards */
+.target, .activity, .appt-card { position: relative; overflow: hidden; }
+.target::after, .appt-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; transform: translateX(-120%);
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .45) 50%, transparent 65%);
+  transition: transform .9s var(--ease);
+}
+.target:hover::after, .appt-card:hover::after { transform: translateX(120%); }
+
+.dialog::backdrop { background: rgba(11, 13, 12, .35); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.loader { background: radial-gradient(60% 50% at 50% 40%, rgba(199, 243, 58, .12), transparent 70%), var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .app-body::before { animation: none; }
+}

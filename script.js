@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NEWME Health — website interactions
+   NEWME Health | Website interactions
    Vanilla JS, no dependencies. Shared data comes from data.js (window.NEWME).
    ========================================================================== */
 
@@ -14,9 +14,12 @@
   /* ---------- Sticky navbar + back-to-top ---------- */
   const navbar = $('#navbar');
   const toTop = $('#toTop');
+  const progress = $('#scrollProgress');
   const onScroll = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
     navbar.classList.toggle('is-scrolled', window.scrollY > 8);
     toTop.hidden = window.scrollY < 900;
+    progress.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -60,6 +63,10 @@
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
+  /**
+   * Register .reveal elements with the observer. Called after dynamic content
+   * (departments, doctors) has been rendered so it animates in too.
+   */
   const observeReveal = (root = document) => {
     $$('.reveal:not(.is-visible)', root).forEach((el) => {
       if (el.dataset.delay) el.style.setProperty('--d', `${el.dataset.delay}ms`);
@@ -68,6 +75,7 @@
   };
 
   /* ---------- Counter animation ---------- */
+  /** Count a stat up from 0 to its data-count value with an ease-out curve. */
   const animateCount = (el) => {
     const target = Number(el.dataset.count);
     if (prefersReducedMotion) { el.textContent = target; return; }
@@ -152,6 +160,7 @@
     .map((d) => `<button type="button" class="filter-chip" role="tab" data-dept="${d.id}" aria-selected="${d.id === 'all'}">${d.name}</button>`)
     .join('');
 
+  /** Render doctor cards for the active department chip and search text. */
   const renderDoctors = () => {
     const q = doctorSearch.value.trim().toLowerCase();
     const list = N.doctors.filter((doc) => {
@@ -218,6 +227,11 @@
 
   const fmt = (n) => Math.round(n).toLocaleString('en-US');
 
+  /**
+   * Health calculators. Each receives the form controls and a map of output
+   * elements (data-out) and writes its result. Formulas: BMI, a weight-based
+   * hydration estimate, Mifflin-St Jeor (calories) and Karvonen (heart rate).
+   */
   const calculators = {
     bmi(f, out) {
       const h = Number(f.height.value) / 100;
@@ -308,6 +322,10 @@
   };
 
   // Deterministic "already taken" slots so the schedule looks realistic per doctor/date
+  /**
+   * Whether a slot is unavailable: either booked in this browser or marked busy
+   * by a stable hash, so each doctor's diary looks realistic and consistent.
+   */
   const isTaken = (date, doctor, time) => {
     const key = `${date}|${doctor}|${time}`;
     let hash = 0;
@@ -316,6 +334,7 @@
     return booked || hash % 5 === 0;
   };
 
+  /** Draw time-slot buttons, disabling past times today and busy slots. */
   const renderSlots = () => {
     const now = new Date();
     const nowMinutes = now.getHours() * 60 + now.getMinutes();
@@ -327,7 +346,7 @@
       return `<button type="button" class="slot" data-time="${t}" aria-pressed="${selectedTime === t}" ${disabled ? 'disabled' : ''}>${N.formatTime(t)}</button>`;
     }).join('');
     if (!$('.slot:not(:disabled)', slotsEl)) {
-      slotsEl.insertAdjacentHTML('beforeend', '<p class="col-span-full text-sm text-neutral-500">No slots left on this day — please pick another date.</p>');
+      slotsEl.insertAdjacentHTML('beforeend', '<p class="col-span-full text-sm text-neutral-500">No slots left on this day. Please pick another date.</p>');
     }
   };
 
@@ -343,6 +362,7 @@
   bkDoctor.addEventListener('change', renderSlots);
   bkDate.addEventListener('change', renderSlots);
 
+  /** Prefill the booking form (department, doctor, date) and scroll to it. */
   const goToBooking = ({ dept, doctor, date } = {}) => {
     success.hidden = true;
     form.hidden = false;
@@ -374,6 +394,7 @@
     goToBooking({ dept: $('#qfDept').value, date: $('#qfDate').value });
   });
 
+  /** Validate required booking fields and show inline errors. Returns true when valid. */
   const validate = () => {
     let ok = true;
     ['name', 'phone', 'dept', 'date'].forEach((name) => {

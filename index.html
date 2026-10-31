@@ -3,35 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEWME Health — Your Health, Our Priority</title>
-  <meta name="description" content="NEWME Health: book doctor appointments, online consultations, lab tests at home, health check-up packages and a free patient web app for your records, medications and health trackers." />
+  <title>NEWME Health | Doctors, Online Consultations &amp; Patient Portal</title>
+  <meta name="description" content="Book trusted doctors, consult online, schedule home lab tests and manage records, medicines and daily health in the NEWME Health patient portal." />
   <meta name="theme-color" content="#0B0D0C" />
-  <meta property="og:title" content="NEWME Health — Your Health, Our Priority" />
-  <meta property="og:description" content="Trusted specialists, online consultations and a patient web app — all in one place." />
+  <meta name="color-scheme" content="light" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="canonical" href="https://healthcare-theta-puce.vercel.app/" />
+
+  <!-- Social sharing -->
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/hero-doctor.jpg" />
+  <meta property="og:site_name" content="NEWME Health" />
+  <meta property="og:title" content="NEWME Health | Your Health, Our Priority" />
+  <meta property="og:description" content="Trusted specialists, online consultations and a secure patient portal in one place." />
+  <meta property="og:url" content="https://healthcare-theta-puce.vercel.app/" />
+  <meta property="og:image" content="https://healthcare-theta-puce.vercel.app/assets/images/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
-
-  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { paper: '#F5F5F3', ink: '#0B0D0C', lime: '#C7F33A', mist: '#ECECE9' },
-          fontFamily: {
-            serif: ['"Playfair Display"', 'Georgia', 'serif'],
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
-
-  <link rel="preload" as="image" href="assets/images/hero-doctor.jpg" />
+  <!-- Icons, manifest, fonts and styles (all self-hosted) -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/playfair-display-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/images/hero-doctor.jpg" as="image" />
+  <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="assets/css/tailwind.css" />
+
+  <!-- Structured data for search engines (data block, not executed) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalOrganization",
+    "name": "NEWME Health",
+    "url": "https://healthcare-theta-puce.vercel.app/",
+    "logo": "https://healthcare-theta-puce.vercel.app/apple-touch-icon.png",
+    "telephone": "+1-800-555-0123",
+    "medicalSpecialty": ["Cardiovascular", "Neurologic", "Pediatric", "Dermatologic", "Dentistry", "Optometric"],
+    "address": { "@type": "PostalAddress", "streetAddress": "221 Wellness Ave", "addressLocality": "Seoul", "addressCountry": "KR" }
+  }
+  </script>
 </head>
 
 <body class="bg-paper font-sans text-ink antialiased">
@@ -66,6 +77,9 @@
       <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
       <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
       <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
     </defs>
   </svg>
 
@@ -123,6 +137,8 @@
         </li>
       </ul>
     </div>
+
+    <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress"></i></div>
   </header>
 
   <main id="main">
@@ -192,6 +208,7 @@
 
         <!-- Visual -->
         <div class="hero-visual reveal" data-delay="150">
+          <div class="hero-visual__glow" aria-hidden="true"></div>
           <div class="hero-visual__frame">
             <img src="assets/images/hero-doctor.jpg" alt="Smiling Korean doctor in a white coat holding a patient folder"
                  width="1100" height="1650" fetchpriority="high" class="hero-visual__img" />
@@ -222,6 +239,14 @@
         </div>
       </div>
     </section>
+
+    <!-- ===================== SPECIALTIES MARQUEE ===================== -->
+    <div class="marquee" aria-label="Our specialties">
+      <div class="marquee__track">
+        <div class="marquee__group"><span>General Medicine</span><i aria-hidden="true">&#10022;</i><span>Cardiology</span><i aria-hidden="true">&#10022;</i><span>Neurology</span><i aria-hidden="true">&#10022;</i><span>Pediatrics</span><i aria-hidden="true">&#10022;</i><span>Orthopedics</span><i aria-hidden="true">&#10022;</i><span>Dermatology</span><i aria-hidden="true">&#10022;</i><span>Dentistry</span><i aria-hidden="true">&#10022;</i><span>Eye Care</span><i aria-hidden="true">&#10022;</i><span>Telemedicine</span><i aria-hidden="true">&#10022;</i><span>Lab Tests</span><i aria-hidden="true">&#10022;</i></div>
+        <div class="marquee__group" aria-hidden="true"><span>General Medicine</span><i aria-hidden="true">&#10022;</i><span>Cardiology</span><i aria-hidden="true">&#10022;</i><span>Neurology</span><i aria-hidden="true">&#10022;</i><span>Pediatrics</span><i aria-hidden="true">&#10022;</i><span>Orthopedics</span><i aria-hidden="true">&#10022;</i><span>Dermatology</span><i aria-hidden="true">&#10022;</i><span>Dentistry</span><i aria-hidden="true">&#10022;</i><span>Eye Care</span><i aria-hidden="true">&#10022;</i><span>Telemedicine</span><i aria-hidden="true">&#10022;</i><span>Lab Tests</span><i aria-hidden="true">&#10022;</i></div>
+      </div>
+    </div>
 
     <!-- ===================== STATS ===================== -->
     <section id="about-stats" class="container-x" aria-label="NEWME Health in numbers">
@@ -254,7 +279,7 @@
         </div>
         <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500" data-delay="120">
           From everyday check-ups to specialist treatment, our departments work together so you get
-          one connected plan — not a pile of referrals.
+          one connected plan instead of a pile of referrals.
         </p>
       </div>
       <div id="deptGrid" class="mt-14 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4"></div>
@@ -375,7 +400,7 @@
         <label class="reveal search-field" data-delay="120">
           <svg class="ico-sm"><use href="#i-search"/></svg>
           <span class="sr-only">Search doctors</span>
-          <input id="doctorSearch" type="search" placeholder="Search by name or specialty" autocomplete="off" />
+          <input id="doctorSearch" type="search" placeholder="Search by name or specialty" autocomplete="off" maxlength="60" />
         </label>
       </div>
 
@@ -394,7 +419,7 @@
           </div>
           <p class="max-w-md text-[15px] leading-relaxed text-neutral-400">
             Quick calculators to understand your numbers. Results are estimates for general guidance and
-            are not a diagnosis — talk to a doctor about anything that worries you.
+            are not a diagnosis. Talk to a doctor about anything that worries you.
           </p>
         </div>
 
@@ -496,8 +521,8 @@
               </div>
             </fieldset>
 
-            <label class="field field--light"><span>Full name</span><input name="name" type="text" autocomplete="name" placeholder="e.g. Ji-woo Park" required /><em class="field-error">Please enter your name.</em></label>
-            <label class="field field--light"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+1 555 0100" required pattern="[0-9+\-() ]{7,}" /><em class="field-error">Please enter a valid phone number.</em></label>
+            <label class="field field--light"><span>Full name</span><input name="name" type="text" autocomplete="name" placeholder="e.g. Ji-woo Park" required maxlength="80" /><em class="field-error">Please enter your name.</em></label>
+            <label class="field field--light"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+1 555 0100" required maxlength="20" pattern="[0-9+\-() ]{7,}" /><em class="field-error">Please enter a valid phone number.</em></label>
             <label class="field field--light"><span>Department</span>
               <select name="dept" id="bkDept" required><option value="">Choose department</option></select>
               <em class="field-error">Please choose a department.</em>
@@ -513,7 +538,7 @@
               <em class="field-error" id="slotError">Please choose a time.</em>
             </fieldset>
 
-            <label class="field field--light sm:col-span-2"><span>Reason for visit <small class="font-normal text-neutral-400">(optional)</small></span><textarea name="notes" rows="3" placeholder="Briefly describe your symptoms or what you need help with"></textarea></label>
+            <label class="field field--light sm:col-span-2"><span>Reason for visit <small class="font-normal text-neutral-400">(optional)</small></span><textarea name="notes" rows="3" placeholder="Briefly describe your symptoms or what you need help with" maxlength="500"></textarea></label>
 
             <div class="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
               <p class="text-xs text-neutral-500">Free cancellation up to 2 hours before your visit.</p>
@@ -719,21 +744,21 @@
               <div class="scr">
                 <div class="scr__top">
                   <img src="assets/images/avatar-1.jpg" alt="" class="scr__avatar" loading="lazy" />
-                  <span class="scr__icon">≡</span>
+                  <span class="scr__icon"><svg><use href="#i-menu"/></svg></span>
                 </div>
                 <p class="scr__hello">Good morning,<br />Hana</p>
                 <div class="scr__drink">
                   <div>
                     <p class="scr__drink-title">Next<br />Visit</p>
                     <p class="scr__drink-sub">Dr. Min-ji Lee · Today 2:30 PM · Video call</p>
-                    <span class="scr__go">→</span>
+                    <span class="scr__go"><svg><use href="#i-arrow"/></svg></span>
                   </div>
                   <img src="assets/images/doctor-6.jpg" alt="" loading="lazy" />
                 </div>
                 <p class="scr__h">Today's Medicines</p>
                 <div class="scr__meal">
                   <span class="scr__meal-tag">8:00 AM</span>
-                  <div class="scr__meal-row"><i></i><i></i><i></i><b>✓</b></div>
+                  <div class="scr__meal-row"><i></i><i></i><i></i><b><svg><use href="#i-check"/></svg></b></div>
                   <div class="scr__meal-meta"><span>Vitamin D</span><span>Omega-3</span><span>Metformin</span></div>
                 </div>
               </div>
@@ -745,8 +770,8 @@
               <span class="phone__island"></span>
               <div class="scr scr--flush">
                 <div class="scr__dark">
-                  <div class="scr__top scr__top--dark"><span class="scr__icon scr__icon--dark">‹</span><b>My Health</b><span class="scr__icon scr__icon--dark">≡</span></div>
-                  <div class="scr__date">▣ Today's vitals <span>⌄</span></div>
+                  <div class="scr__top scr__top--dark"><span class="scr__icon scr__icon--dark"><svg><use href="#i-left"/></svg></span><b>My Health</b><span class="scr__icon scr__icon--dark"><svg><use href="#i-menu"/></svg></span></div>
+                  <div class="scr__date"><span><svg><use href="#i-calendar"/></svg>Today's vitals</span><svg><use href="#i-down"/></svg></div>
                   <p class="scr__gain">Blood pressure is <b>normal</b><br /><small>Last check 8:10 AM</small></p>
                   <p class="scr__kcal">118/76</p>
                   <div class="scr__rings">
@@ -797,7 +822,7 @@
           <div class="post-card__media"><img src="assets/images/lab.jpg" alt="Laboratory with testing equipment" loading="lazy" /></div>
           <p class="post-card__meta"><span class="chip">Lab Tests</span>6 min read</p>
           <h3 class="post-card__title">How to Read Your Blood Test Report</h3>
-          <p class="post-card__text">What CBC, HbA1c and cholesterol numbers really mean — and when to ask your doctor.</p>
+          <p class="post-card__text">What CBC, HbA1c and cholesterol numbers really mean, and when to ask your doctor.</p>
         </article>
       </div>
     </section>
@@ -814,7 +839,7 @@
         <div class="faq reveal" data-delay="100">
           <details open>
             <summary>How do online consultations work?</summary>
-            <p>Book a "Video call" visit, then join from the web app at your appointment time. No downloads needed — it works in any modern browser on phone or computer.</p>
+            <p>Book a "Video call" visit, then join from the web app at your appointment time. No downloads needed. It works in any modern browser on phone or computer.</p>
           </details>
           <details>
             <summary>Do you accept health insurance?</summary>
@@ -842,16 +867,28 @@
   </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer id="contact" class="border-t border-neutral-200">
-    <div class="container-x py-16">
-      <div class="grid gap-12 lg:grid-cols-[1.3fr_3fr_1.3fr]">
+  <footer id="contact" class="site-footer">
+    <div class="container-x">
+      <!-- Closing call to action -->
+      <div class="footer-cta">
+        <div>
+          <p class="eyebrow eyebrow--dark">Start today</p>
+          <h2 class="mt-4 font-serif text-4xl font-semibold leading-tight text-white sm:text-5xl">Ready to feel<br />your best?</h2>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <a href="#appointment" class="btn-lime btn-ripple">Book Appointment</a>
+          <a href="app.html" class="btn-ghost-light">Open Patient Portal</a>
+        </div>
+      </div>
+
+      <div class="grid gap-12 py-16 lg:grid-cols-[1.3fr_3fr_1.3fr]">
         <div class="max-w-xs">
-          <a href="#home" class="logo" aria-label="NEWME Health home"><span class="logo__n">N</span><span>EWME</span><span class="logo__tag">Health</span></a>
-          <p class="mt-6 text-sm leading-relaxed text-neutral-500">Trusted doctors, connected digital care and a patient web app that keeps your whole health story in one place.</p>
-          <ul class="mt-6 space-y-3 text-sm">
-            <li class="flex items-center gap-2"><svg class="ico-sm"><use href="#i-pin"/></svg>221 Wellness Ave, Seoul</li>
-            <li class="flex items-center gap-2"><svg class="ico-sm"><use href="#i-phone"/></svg><a href="tel:+18005550123">+1 (800) 555-0123</a></li>
-            <li class="flex items-center gap-2"><svg class="ico-sm"><use href="#i-mail"/></svg><a href="mailto:care@newme.health">care@newme.health</a></li>
+          <a href="#home" class="logo logo--light" aria-label="NEWME Health home"><span class="logo__n">N</span><span>EWME</span><span class="logo__tag">Health</span></a>
+          <p class="mt-6 text-sm leading-relaxed text-neutral-400">Trusted doctors, connected digital care and a patient portal that keeps your whole health story in one place.</p>
+          <ul class="mt-6 space-y-3 text-sm text-neutral-300">
+            <li class="flex items-center gap-2"><svg class="ico-sm text-lime"><use href="#i-pin"/></svg>221 Wellness Ave, Seoul</li>
+            <li class="flex items-center gap-2"><svg class="ico-sm text-lime"><use href="#i-phone"/></svg><a href="tel:+18005550123" class="hover:text-white">+1 (800) 555-0123</a></li>
+            <li class="flex items-center gap-2"><svg class="ico-sm text-lime"><use href="#i-mail"/></svg><a href="mailto:care@newme.health" class="hover:text-white">care@newme.health</a></li>
           </ul>
         </div>
 
@@ -874,8 +911,8 @@
               <li><a href="#services">Emergency</a></li>
             </ul>
           </nav>
-          <nav aria-label="Web App">
-            <h3 class="footer-h">Web App</h3>
+          <nav aria-label="Patient portal">
+            <h3 class="footer-h">Patient Portal</h3>
             <ul class="footer-list">
               <li><a href="app.html">Dashboard</a></li>
               <li><a href="app.html#appointments">Appointments</a></li>
@@ -896,12 +933,12 @@
 
         <div>
           <h3 class="footer-h">Health tips in your inbox</h3>
-          <form id="newsletter" class="newsletter">
+          <form id="newsletter" class="newsletter" novalidate>
             <label class="sr-only" for="nlEmail">Email address</label>
-            <input id="nlEmail" type="email" placeholder="Your email" required autocomplete="email" />
+            <input id="nlEmail" type="email" placeholder="Your email" required autocomplete="email" maxlength="120" />
             <button type="submit" class="arrow-circle arrow-circle--lg" aria-label="Subscribe"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
           </form>
-          <p id="nlMsg" class="mt-2 min-h-[1.25rem] text-xs text-neutral-500" aria-live="polite"></p>
+          <p id="nlMsg" class="mt-2 min-h-[1.25rem] text-xs text-neutral-400" aria-live="polite"></p>
           <div class="mt-4 flex gap-3">
             <a href="#" class="social" aria-label="NEWME Health on Instagram">
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="dot"/></svg>
@@ -916,11 +953,12 @@
         </div>
       </div>
 
-      <div class="mt-14 flex flex-col-reverse items-start justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center">
-        <p>© <span id="year">2026</span> NEWME Health. All rights reserved. Information on this site is not a substitute for professional medical advice.</p>
-        <p>Photos via Unsplash &amp; Pexels</p>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year">2026</span> NEWME Health. All rights reserved.</p>
+        <p>The information on this site is general guidance and not a substitute for professional medical advice.</p>
       </div>
     </div>
+    <p class="footer-wordmark" aria-hidden="true">NEWME</p>
   </footer>
 
   <!-- Mobile quick actions -->
