@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NEWME Health — patient web app
+   NEWME Health | Patient portal
    Single-page dashboard with hash routing. All data lives in this browser
    (localStorage via NEWME.store) and is seeded with sample data on first run.
    ========================================================================== */
@@ -82,6 +82,7 @@
   /* ---------- Sample data (first run or after reset) ---------- */
   const SEED_KEYS = ['profile', 'weights', 'sleep', 'water', 'meals', 'vitals', 'meds', 'medsTaken', 'seeded'];
 
+  /** Write sample data on first visit (or after a reset) so the portal is never empty. */
   const seed = () => {
     if (store.get('seeded', false)) return;
 
@@ -143,16 +144,51 @@
 
   /* ---------- Data accessors ---------- */
   const profile = () => store.get('profile', {});
-  const meals = () => store.get('meals', []);
-  const mealsOn = (date) => meals().filter((m) => m.date === date);
-  const meds = () => store.get('meds', []).slice().sort((a, b) => a.time.localeCompare(b.time));
-  const takenToday = () => store.get('medsTaken', {})[today] || {};
-  const weights = () => store.get('weights', []).slice().sort((a, b) => a.date.localeCompare(b.date));
-  const latestWeight = () => { const w = weights(); return w.length ? w[w.length - 1].kg : null; };
-  const vitals = () => store.get('vitals', []);
-  const latestVitals = () => { const v = vitals(); return v.length ? v[v.length - 1] : null; };
-  const waterOn = (date) => store.get('water', {})[date] || 0;
+  const { safeId, safeText, safeNum, safeImg, ISO_DATE, HHMM } = N;
+  const asArray = (value) => (Array.isArray(value) ? value.filter((x) => x && typeof x === 'object') : []);
 
+  /* Every accessor validates what it reads, because localStorage is user-editable. */
+  const meals = () => asArray(store.get('meals', [])).map((m) => ({
+    id: safeId(m.id),
+    date: ISO_DATE.test(m.date) ? m.date : today,
+    slot: MEAL_SLOTS.some((s) => s.id === m.slot) ? m.slot : 'lunch',
+    name: safeText(m.name, 60),
+    kcal: Math.max(0, Math.round(safeNum(m.kcal))),
+    img: safeImg(m.img),
+    p: safeNum(m.p, DEFAULT_MACROS.p),
+    c: safeNum(m.c, DEFAULT_MACROS.c),
+    f: safeNum(m.f, DEFAULT_MACROS.f),
+    fiber: m.fiber === undefined ? undefined : safeNum(m.fiber),
+  }));
+  const mealsOn = (date) => meals().filter((m) => m.date === date);
+  const meds = () => asArray(store.get('meds', []))
+    .map((m) => ({
+      id: safeId(m.id),
+      name: safeText(m.name, 60),
+      dose: safeText(m.dose, 30),
+      time: HHMM.test(m.time) ? m.time : '08:00',
+      note: safeText(m.note, 80),
+    }))
+    .sort((a, b) => a.time.localeCompare(b.time));
+  const takenToday = () => store.get('medsTaken', {})[today] || {};
+  const weights = () => asArray(store.get('weights', []))
+    .filter((w) => ISO_DATE.test(w.date) && safeNum(w.kg) > 0)
+    .map((w) => ({ date: w.date, kg: +safeNum(w.kg).toFixed(1) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+  const latestWeight = () => { const w = weights(); return w.length ? w[w.length - 1].kg : null; };
+  const vitals = () => asArray(store.get('vitals', []))
+    .filter((v) => ISO_DATE.test(v.date))
+    .map((v) => ({
+      date: v.date,
+      time: HHMM.test(v.time) ? v.time : '08:00',
+      bpm: Math.round(safeNum(v.bpm)),
+      sys: Math.round(safeNum(v.sys)),
+      dia: Math.round(safeNum(v.dia)),
+    }));
+  const latestVitals = () => { const v = vitals(); return v.length ? v[v.length - 1] : null; };
+  const waterOn = (date) => Math.max(0, safeNum((store.get('water', {}) || {})[date]));
+
+  /** Sum calories and estimate macros (g) for a list of meal entries. */
   const nutrition = (list) => list.reduce((acc, m) => {
     const p = m.p ?? DEFAULT_MACROS.p;
     const c = m.c ?? DEFAULT_MACROS.c;
@@ -194,6 +230,7 @@
      Header: user menu, notifications, search
      ========================================================================== */
   const popovers = [];
+  /** Wire a header button to its popover; only one popover is open at a time. */
   const bindPopover = (btn, menu, onOpen) => {
     const close = () => { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
     const open = () => {
@@ -216,6 +253,7 @@
     $('#notifDot').hidden = notes.length === 0;
   };
 
+  /** Build the notification list: visits in the next 2 days, missed doses, low water. */
   const notifications = () => {
     const list = [];
     const soon = addDays(today, 2);
@@ -279,6 +317,7 @@
   let pendingScroll = null;
   let pendingDoctor = null;
 
+  /** Navigate to a view, optionally scrolling to a card or preselecting a doctor. */
   const go = (view, { scroll, doctor } = {}) => {
     pendingScroll = scroll || null;
     pendingDoctor = doctor || null;
@@ -296,6 +335,7 @@
   });
 
   const renderers = {};
+  /** Show the view named in the URL hash and render it. */
   const route = () => {
     const hash = location.hash.slice(1);
     const view = VIEWS.includes(hash) ? hash : 'dashboard';
@@ -306,7 +346,7 @@
       l.classList.toggle('is-active', on);
       if (on) l.setAttribute('aria-current', 'page'); else l.removeAttribute('aria-current');
     });
-    document.title = `${$(`#view-${view}`).dataset.title} — NEWME Health`;
+    document.title = `${$(`#view-${view}`).dataset.title} | NEWME Health`;
     renderers[view]();
     renderHeader();
 
@@ -341,6 +381,7 @@
     renderMeals();
   };
 
+  /** Body Overview card: weight trend, calories left today and macro rings. */
   const renderOverview = () => {
     const days = Number($('#overviewRange').value);
     const span = days === 7 ? 'week' : 'month';
@@ -414,10 +455,10 @@
         <div class="appt-hero__when">
           <span><svg aria-hidden="true"><use href="#i-calendar"/></svg>${N.formatDate(next.date)}</span>
           <span><svg aria-hidden="true"><use href="#i-clock"/></svg>${N.formatTime(next.time)}</span>
-          <span><svg aria-hidden="true"><use href="#${next.type === 'Video call' ? 'i-video' : 'i-pin'}"/></svg>${next.type}</span>
+          <span><svg aria-hidden="true"><use href="#${next.type === 'Video call' ? 'i-video' : 'i-pin'}"/></svg>${esc(next.type)}</span>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-          ${next.type === 'Video call' ? `<button type="button" class="btn-lime btn-ripple btn-sm" data-join="${next.id}"><svg class="ico-sm"><use href="#i-video"/></svg>Join video visit</button>` : ''}
+          ${next.type === 'Video call' ? `<button type="button" class="btn-lime btn-ripple btn-sm" data-join="${esc(next.id)}"><svg class="ico-sm"><use href="#i-video"/></svg>Join video visit</button>` : ''}
           <a href="#appointments" class="btn-outline btn-sm">Details</a>
         </div>
       </div>`;
@@ -430,8 +471,8 @@
         <p class="med-row__name">${esc(m.name)} <span class="font-normal text-neutral-500">${esc(m.dose)}</span></p>
         <p class="med-row__meta">${esc(m.note || 'Take as directed')}</p>
       </div>
-      <button type="button" class="check-btn" data-med="${m.id}" aria-pressed="${!!taken}" aria-label="Mark ${esc(m.name)} at ${N.formatTime(m.time)} as taken"><svg aria-hidden="true"><use href="#i-check"/></svg></button>
-      ${withDelete ? `<button type="button" class="del-btn" data-del-med="${m.id}" aria-label="Remove ${esc(m.name)}"><svg aria-hidden="true"><use href="#i-trash"/></svg></button>` : ''}
+      <button type="button" class="check-btn" data-med="${esc(m.id)}" aria-pressed="${!!taken}" aria-label="Mark ${esc(m.name)} at ${N.formatTime(m.time)} as taken"><svg aria-hidden="true"><use href="#i-check"/></svg></button>
+      ${withDelete ? `<button type="button" class="del-btn" data-del-med="${esc(m.id)}" aria-label="Remove ${esc(m.name)}"><svg aria-hidden="true"><use href="#i-trash"/></svg></button>` : ''}
     </div>`;
 
   const renderDashMeds = () => {
@@ -444,6 +485,7 @@
   };
 
   /* Meal plan panel */
+  /** Meal plan panel for the selected day, plus the calories analysis bars. */
   const renderMeals = () => {
     const rel = mealDate === today ? 'Today' : mealDate === addDays(today, -1) ? 'Yesterday' : mealDate === addDays(today, 1) ? 'Tomorrow' : '';
     $('#mealDate').textContent = rel ? `${rel}, ${longDate(mealDate).replace(/^\w+, /, '')}` : longDate(mealDate);
@@ -453,7 +495,7 @@
       const items = dayMeals.filter((m) => m.slot === slot.id);
       const kcal = items.reduce((s, m) => s + m.kcal, 0);
       const thumbs = items.slice(0, 3).map((m) => m.img
-        ? `<img src="${m.img}" alt="${esc(m.name)}" title="${esc(m.name)} · ${m.kcal} kcal" />`
+        ? `<img src="${esc(m.img)}" alt="${esc(m.name)}" title="${esc(m.name)} · ${fmt(m.kcal)} kcal" />`
         : `<span class="meal__ph" title="${esc(m.name)}">${esc(m.name.charAt(0).toUpperCase())}</span>`).join('');
       const open = expandedSlots.has(slot.id);
       return `
@@ -470,7 +512,7 @@
             <p class="meal__kcal">${fmt(kcal)} kcal</p>
           </div>
           ${items.length ? `<button type="button" class="meal__toggle" data-toggle-slot="${slot.id}" aria-expanded="${open}">${open ? 'Hide' : 'Show'} ${items.length} item${items.length > 1 ? 's' : ''}</button>` : ''}
-          ${open && items.length ? `<div class="meal__items">${items.map((m) => `<div class="meal__item"><span>${esc(m.name)} · ${m.kcal} kcal</span><button type="button" data-del-meal="${m.id}" aria-label="Remove ${esc(m.name)}"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>`).join('')}</div>` : ''}
+          ${open && items.length ? `<div class="meal__items">${items.map((m) => `<div class="meal__item"><span>${esc(m.name)} · ${fmt(m.kcal)} kcal</span><button type="button" data-del-meal="${esc(m.id)}" aria-label="Remove ${esc(m.name)}"><svg aria-hidden="true"><use href="#i-x"/></svg></button></div>`).join('')}</div>` : ''}
         </div>`;
     }).join('');
 
@@ -559,6 +601,7 @@
   /* ==========================================================================
      Shared actions: water, medicine check-off, video visit
      ========================================================================== */
+  /** Add (or remove, if negative) water for today. Returns today's new total in ml. */
   const addWater = (ml) => {
     const water = store.get('water', {});
     water[today] = Math.max(0, (water[today] || 0) + ml);
@@ -566,6 +609,7 @@
     return water[today];
   };
 
+  /** Toggle today's taken state for a medicine dose. Returns the new state. */
   const toggleMed = (id) => {
     const all = store.get('medsTaken', {});
     const day = { ...(all[today] || {}) };
@@ -667,17 +711,17 @@
             <p class="appt-card__meta">${dept ? dept.name : ''} · ${N.formatDate(a.date)} at ${N.formatTime(a.time)}</p>
             <div class="appt-card__chips">
               <span class="status status--${status}">${status[0].toUpperCase() + status.slice(1)}</span>
-              <span class="chip">${a.type}</span>
+              <span class="chip">${esc(a.type)}</span>
               <span class="chip">${esc(a.id)}</span>
             </div>
             ${a.notes ? `<p class="mt-2 text-xs text-neutral-500">${esc(a.notes)}</p>` : ''}
           </div>
           ${status === 'upcoming' ? `<div class="appt-card__actions">
-            ${a.type === 'Video call' ? `<button type="button" class="btn-lime btn-ripple btn-sm" data-join="${a.id}">Join</button>` : ''}
-            <button type="button" class="btn-danger-ghost" data-cancel="${a.id}">Cancel</button>
+            ${a.type === 'Video call' ? `<button type="button" class="btn-lime btn-ripple btn-sm" data-join="${esc(a.id)}">Join</button>` : ''}
+            <button type="button" class="btn-danger-ghost" data-cancel="${esc(a.id)}">Cancel</button>
           </div>` : ''}
         </article>`;
-    }).join('') : `<div class="empty"><p>${apptTab === 'upcoming' ? 'No upcoming visits yet — book one with the form.' : 'No past visits yet.'}</p></div>`;
+    }).join('') : `<div class="empty"><p>${apptTab === 'upcoming' ? 'No upcoming visits yet. Book one with the form.' : 'No past visits yet.'}</p></div>`;
   };
 
   $$('[data-appt-tab]').forEach((t) => t.addEventListener('click', () => { apptTab = t.dataset.apptTab; renderers.appointments(); }));
@@ -730,7 +774,7 @@
       <div class="big-ring__dial" style="--p:${pct}; --c:#C7F33A"><span>${pct}%</span></div>
       <div>
         <p class="adherence__title">${done} of ${list.length} doses taken</p>
-        <p class="adherence__text">${next ? `Next: ${esc(next.name)} ${esc(next.dose)} at ${N.formatTime(next.time)}` : list.length && done === list.length ? 'All done for today — great job!' : 'Check off doses as you take them.'}</p>
+        <p class="adherence__text">${next ? `Next: ${esc(next.name)} ${esc(next.dose)} at ${N.formatTime(next.time)}` : list.length && done === list.length ? 'All done for today. Great job!' : 'Check off doses as you take them.'}</p>
       </div>`;
     $('#medSchedule').innerHTML = list.length
       ? list.map((m) => medRow(m, taken[m.id], true)).join('')
@@ -777,9 +821,9 @@
     requestAnimationFrame(() => { $('#waterFill').style.height = `${Math.min(ml / goal, 1) * 100}%`; });
 
     // Sleep (last 7 days, ending today)
-    const sleep = store.get('sleep', []);
+    const sleep = asArray(store.get('sleep', []));
     const days = Array.from({ length: 7 }, (_, i) => addDays(today, i - 6));
-    const hours = days.map((d) => (sleep.find((s) => s.date === d) || {}).hours || 0);
+    const hours = days.map((d) => Math.min(24, Math.max(0, safeNum((sleep.find((s) => s && s.date === d) || {}).hours))));
     const logged = hours.filter((h) => h > 0);
     $('#sleepAvg').textContent = logged.length ? `${(logged.reduce((a, b) => a + b, 0) / logged.length).toFixed(1)} h` : '—';
     $('#sleepBars').innerHTML = days.map((d, i) => {
@@ -865,6 +909,10 @@
 
   /* Scan my food: photo preview + manual calorie entry */
   let scanThumb = '';
+  /**
+   * Resize an image file in the browser and return a JPEG data URL.
+   * Photos never leave the device; small thumbnails keep storage usage low.
+   */
   const downscale = (file, maxSize) => new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
@@ -888,7 +936,7 @@
       $('#scanImg').alt = 'Your meal photo';
       scanThumb = await downscale(file, 140);
       $('#scanForm').elements.name.focus();
-      toast('Photo added — now name your meal');
+      toast('Photo added. Now name your meal.');
     } catch (err) {
       toast('Could not read that image');
     }
@@ -932,6 +980,7 @@
       `<button type="button" class="doc-row" data-doc="${d.type}"><span>${d.title}<small>${d.sub}</small></span><svg aria-hidden="true"><use href="#i-download"/></svg></button>`).join('');
   };
 
+  /** Save generated text as a file using a temporary object URL. */
   const download = (filename, text) => {
     const url = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
     const a = Object.assign(document.createElement('a'), { href: url, download: filename });
@@ -943,12 +992,13 @@
 
   const labText = () => LABS.map(([n, v, u, r, s]) => `  ${n.padEnd(20)} ${`${v} ${u}`.padEnd(16)} ref ${r.padEnd(12)} ${s.toUpperCase()}`).join('\n');
 
+  /** Plain-text patient summary for the Records download. */
   const summaryText = () => {
     const p = profile();
     const v = latestVitals();
     const upcoming = N.getAppointments().filter(isUpcoming);
     return [
-      'NEWME HEALTH — PATIENT SUMMARY',
+      'NEWME HEALTH | PATIENT SUMMARY',
       `Generated: ${longDate(today)}`,
       '',
       `Name: ${p.name}   Age: ${p.age}   Sex: ${p.sex === 'm' ? 'Male' : 'Female'}   Blood type: ${p.blood}`,
@@ -957,10 +1007,10 @@
       v ? `Latest vitals: ${v.bpm} bpm, BP ${v.sys}/${v.dia} (${N.formatDate(v.date)})` : 'Latest vitals: none',
       '',
       'CURRENT MEDICINES',
-      ...meds().map((m) => `  ${N.formatTime(m.time).padEnd(9)} ${m.name} ${m.dose} — ${m.note || 'as directed'}`),
+      ...meds().map((m) => `  ${N.formatTime(m.time).padEnd(9)} ${m.name} ${m.dose}: ${m.note || 'as directed'}`),
       '',
       'UPCOMING APPOINTMENTS',
-      ...(upcoming.length ? upcoming.map((a) => `  ${N.formatDate(a.date)} ${N.formatTime(a.time)} — ${a.doctorName} (${a.type}) [${a.id}]`) : ['  None']),
+      ...(upcoming.length ? upcoming.map((a) => `  ${N.formatDate(a.date)} ${N.formatTime(a.time)}, ${a.doctorName} (${a.type}) [${a.id}]`) : ['  None']),
       '',
       `LATEST BLOOD TEST (${N.formatDate(labDate)})`,
       labText(),
@@ -975,9 +1025,9 @@
     if (!btn) return;
     const p = profile();
     const docs = {
-      labs: ['newme-blood-test.txt', `NEWME HEALTH — BLOOD TEST REPORT\nPatient: ${p.name}\nCollected: ${N.formatDate(labDate)}\n\n${labText()}\n\nReviewed by Dr. Min-ji Lee.`],
-      visit: ['newme-cardiology-visit.txt', `NEWME HEALTH — VISIT SUMMARY\nPatient: ${p.name}\nDoctor: Dr. Seo-yeon Kim (Cardiology)\n\nECG normal sinus rhythm. Blood pressure well controlled.\nPlan: continue Atorvastatin 10 mg, recheck lipids in 3 months, 150 min/week of moderate exercise.`],
-      vaccines: ['newme-vaccinations.txt', `NEWME HEALTH — VACCINATION RECORD\nPatient: ${p.name}\n\nInfluenza — annual\nTetanus/diphtheria booster — up to date\nHepatitis B — complete (3 doses)\nCOVID-19 — up to date`],
+      labs: ['newme-blood-test.txt', `NEWME HEALTH | BLOOD TEST REPORT\nPatient: ${p.name}\nCollected: ${N.formatDate(labDate)}\n\n${labText()}\n\nReviewed by Dr. Min-ji Lee.`],
+      visit: ['newme-cardiology-visit.txt', `NEWME HEALTH | VISIT SUMMARY\nPatient: ${p.name}\nDoctor: Dr. Seo-yeon Kim (Cardiology)\n\nECG normal sinus rhythm. Blood pressure well controlled.\nPlan: continue Atorvastatin 10 mg, recheck lipids in 3 months, 150 min/week of moderate exercise.`],
+      vaccines: ['newme-vaccinations.txt', `NEWME HEALTH | VACCINATION RECORD\nPatient: ${p.name}\n\nInfluenza: annual\nTetanus/diphtheria booster: up to date\nHepatitis B: complete (3 doses)\nCOVID-19: up to date`],
     };
     const [name, text] = docs[btn.dataset.doc];
     download(name, text);

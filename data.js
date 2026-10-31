@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NEWME — shared data + storage
+   NEWME Health | Shared data and storage
    Loaded by both the website (index.html) and the web app (app.html),
    so appointments booked on the site show up in the patient portal.
    ========================================================================== */
@@ -66,13 +66,60 @@ window.NEWME = (() => {
     return `${((h + 11) % 12) + 1}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
   };
 
+  /** Matches YYYY-MM-DD and HH:MM strings produced by the booking forms. */
+  const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+  const HHMM = /^\d{2}:\d{2}$/;
+
+  /** Short, attribute-safe identifier (letters, digits and dashes only). */
+  const safeId = (value) => String(value ?? '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 40);
+
+  /** Plain text clipped to a maximum length. */
+  const safeText = (value, max = 120) => String(value ?? '').slice(0, max);
+
+  /** Finite number or a fallback. */
+  const safeNum = (value, fallback = 0) => (Number.isFinite(Number(value)) ? Number(value) : fallback);
+
+  /**
+   * Image sources are limited to bundled assets and in-page photo data,
+   * so stored values can never point the page at an external host.
+   */
+  const safeImg = (value) => {
+    const src = String(value ?? '');
+    if (/^assets\/images\/[\w.-]+\.(jpe?g|png|webp)$/i.test(src)) return src;
+    if (/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(src)) return src;
+    return '';
+  };
+
   const newId = (prefix) => `${prefix}-${Date.now().toString(36).toUpperCase()}${Math.floor(Math.random() * 90 + 10)}`;
 
   const escapeHtml = (str) =>
     String(str).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   /* ---------- Appointments ---------- */
-  const getAppointments = () => store.get('appointments', []);
+  /**
+   * Normalise an appointment read from storage. Anything unexpected is
+   * replaced with a safe default, so tampered data cannot break the UI.
+   */
+  const cleanAppointment = (a) => ({
+    id: safeId(a.id),
+    status: ['upcoming', 'completed', 'cancelled'].includes(a.status) ? a.status : 'upcoming',
+    type: a.type === 'Video call' ? 'Video call' : 'In clinic',
+    dept: deptById(a.dept) ? a.dept : 'general',
+    doctorId: doctorById(a.doctorId) ? a.doctorId : '',
+    doctorName: safeText(a.doctorName || 'First available specialist', 80),
+    name: safeText(a.name, 80),
+    phone: safeText(a.phone, 20),
+    date: ISO_DATE.test(a.date) ? a.date : todayISO(),
+    time: HHMM.test(a.time) ? a.time : '09:00',
+    notes: safeText(a.notes, 500),
+    createdAt: safeNum(a.createdAt),
+  });
+
+  /** All stored appointments, validated. */
+  const getAppointments = () => {
+    const raw = store.get('appointments', []);
+    return Array.isArray(raw) ? raw.filter((a) => a && typeof a === 'object').map(cleanAppointment) : [];
+  };
   const saveAppointments = (list) => store.set('appointments', list);
 
   const addAppointment = (appt) => {
@@ -85,5 +132,6 @@ window.NEWME = (() => {
     departments, doctors, timeSlots, store,
     deptById, doctorById, todayISO, formatDate, formatTime, newId, escapeHtml,
     getAppointments, saveAppointments, addAppointment,
+    ISO_DATE, HHMM, safeId, safeText, safeNum, safeImg,
   };
 })();

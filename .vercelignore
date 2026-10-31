@@ -1,0 +1,10 @@
+# Source and tooling files that are not part of the published site
+node_modules
+src
+package.json
+package-lock.json
+tailwind.config.js
+README.md
+SECURITY.md
+.editorconfig
+.gitattributes
