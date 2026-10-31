@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>NEWME Health — Patient Web App</title>
+  <meta name="description" content="Your NEWME Health patient dashboard: appointments, medications, meal plan, water, sleep and vitals trackers, and lab records." />
+  <meta name="theme-color" content="#0B0D0C" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { paper: '#F5F5F3', ink: '#0B0D0C', lime: '#C7F33A', mist: '#ECECE9' },
+          fontFamily: { serif: ['"Playfair Display"', 'Georgia', 'serif'], sans: ['Inter', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="app.css" />
+</head>
+
+<body class="app-body is-loading bg-paper font-sans text-ink antialiased">
+  <!-- Icon sprite -->
+  <svg width="0" height="0" class="absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+      <symbol id="i-pill" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-45 12 12)"/><path d="M9.2 9.2l5.6 5.6"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+      <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s7 7.2 7 12a7 7 0 0 1-14 0c0-4.8 7-12 7-12z"/></symbol>
+      <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.7 7-7 0-5-4-7-5-11-2 2-3 4-3 6-1-1-2-2-2-4-2 2-4 5-4 9 0 4.3 3 7 7 7z"/></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9a5 5 0 0 1 8 0l-3 3"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-8.7A5.2 5.2 0 0 1 12 6.3a5.2 5.2 0 0 1 9.2 5c-2.2 4.3-9.2 8.7-9.2 8.7z"/><path d="M3.5 12h4l1.5-3 3 6 1.5-3h7"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2l2-2h6l2 2h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="4"/></symbol>
+      <symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+      <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== LOADING SCREEN ===================== -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader__logo"><span>N</span></div>
+    <p class="loader__title">NEWME Health</p>
+    <p class="loader__text" id="loaderText">Loading your health dashboard…</p>
+    <div class="loader__bar"><i></i></div>
+  </div>
+
+  <div class="app" id="app" aria-hidden="true">
+    <!-- ===================== SIDEBAR ===================== -->
+    <nav class="sidebar" aria-label="Web app">
+      <a href="index.html" class="sidebar__logo" aria-label="Back to NEWME Health website">N</a>
+      <ul class="sidebar__nav">
+        <li><a href="#dashboard" class="side-link" data-view="dashboard" aria-label="Dashboard"><svg><use href="#i-home"/></svg><span>Home</span></a></li>
+        <li><a href="#appointments" class="side-link" data-view="appointments" aria-label="Appointments"><svg><use href="#i-calendar"/></svg><span>Visits</span></a></li>
+        <li><a href="#medications" class="side-link" data-view="medications" aria-label="Medications"><svg><use href="#i-pill"/></svg><span>Meds</span></a></li>
+        <li><a href="#trackers" class="side-link" data-view="trackers" aria-label="Trackers"><svg><use href="#i-chart"/></svg><span>Track</span></a></li>
+        <li><a href="#records" class="side-link" data-view="records" aria-label="Records"><svg><use href="#i-file"/></svg><span>Records</span></a></li>
+      </ul>
+      <div class="sidebar__bottom">
+        <a href="#profile" class="side-link" data-view="profile" aria-label="Profile and settings"><svg><use href="#i-gear"/></svg><span>Profile</span></a>
+      </div>
+    </nav>
+
+    <!-- ===================== MAIN ===================== -->
+    <div class="app-main">
+      <header class="app-header">
+        <div class="relative">
+          <button type="button" class="user-pill" id="userMenuBtn" aria-haspopup="true" aria-expanded="false" aria-controls="userMenu">
+            <img src="assets/images/avatar-1.jpg" alt="" class="user-pill__img" id="userAvatar" />
+            <span class="user-pill__name" id="userName">Patient</span>
+            <span class="user-pill__chev" aria-hidden="true"><svg><use href="#i-chevron"/></svg></span>
+          </button>
+          <div class="popover popover--left" id="userMenu" hidden>
+            <a href="#profile" class="popover__item"><svg><use href="#i-user"/></svg>My profile</a>
+            <a href="#appointments" class="popover__item"><svg><use href="#i-calendar"/></svg>My appointments</a>
+            <a href="index.html" class="popover__item"><svg><use href="#i-logout"/></svg>Back to website</a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" aria-controls="notifMenu">
+              <svg><use href="#i-bell"/></svg><span class="icon-btn__dot" id="notifDot" hidden></span>
+            </button>
+            <div class="popover popover--right popover--wide" id="notifMenu" hidden>
+              <p class="popover__title">Notifications</p>
+              <div id="notifList"></div>
+            </div>
+          </div>
+          <div class="relative">
+            <button type="button" class="icon-btn" id="searchBtn" aria-label="Search" aria-haspopup="true" aria-expanded="false" aria-controls="searchMenu"><svg><use href="#i-search"/></svg></button>
+            <div class="popover popover--right popover--wide" id="searchMenu" hidden>
+              <label class="search-box"><svg><use href="#i-search"/></svg><span class="sr-only">Search the web app</span><input id="searchInput" type="search" placeholder="Search doctors, trackers, records…" autocomplete="off" /></label>
+              <div id="searchResults" class="mt-2"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main id="views" class="app-views" tabindex="-1">
+        <!-- ===================== DASHBOARD ===================== -->
+        <section class="view" id="view-dashboard" data-title="Dashboard">
+          <div class="dash">
+            <div class="dash__main">
+              <div class="dash__row">
+                <div class="dash__col">
+                  <div class="block-head">
+                    <h1 class="block-title">Body Overview</h1>
+                    <label class="mini-select"><span class="sr-only">Range</span>
+                      <select id="overviewRange"><option value="30">Monthly</option><option value="7">Weekly</option></select>
+                      <svg aria-hidden="true"><use href="#i-chevron"/></svg>
+                    </label>
+                  </div>
+                  <div class="overview" id="overview"></div>
+                </div>
+
+                <div class="dash__col">
+                  <div class="block-head">
+                    <h2 class="block-title">My Daily Target</h2>
+                    <a href="#trackers" class="see-all">See All</a>
+                  </div>
+                  <div class="targets" id="targets"></div>
+                </div>
+              </div>
+
+              <div class="block-head mt-8">
+                <h2 class="block-title">New Activity</h2>
+                <a href="#trackers" class="see-all">See All Suggestions</a>
+              </div>
+              <div class="activity-row" id="activityRow">
+                <a href="#trackers" data-scroll="water-tracker" class="activity activity--lime">
+                  <h3 class="activity__title">Drinking<br />Tracker</h3>
+                  <p class="activity__text">Stay hydrated, it's nature's best refreshment!</p>
+                  <span class="activity__go"><svg><use href="#i-arrow"/></svg></span>
+                  <img src="assets/images/drink.jpg" alt="" class="activity__img" style="object-position: 40% 20%;" />
+                </a>
+                <a href="#trackers" data-scroll="vitals-tracker" class="activity activity--white">
+                  <h3 class="activity__title">Daily<br />Exercise</h3>
+                  <p class="activity__text">Move 30 minutes a day to protect your heart.</p>
+                  <span class="activity__go"><svg><use href="#i-arrow"/></svg></span>
+                  <img src="assets/images/hero-model-portrait.jpg" alt="" class="activity__img" style="object-position: 40% 30%;" />
+                </a>
+                <a href="#trackers" data-scroll="sleep-tracker" class="activity activity--dark">
+                  <h3 class="activity__title">Sleep<br />Tracker</h3>
+                  <p class="activity__text">Good sleep repairs your body and mind.</p>
+                  <span class="activity__go"><svg><use href="#i-arrow"/></svg></span>
+                  <img src="assets/images/sleep.jpg" alt="" class="activity__img" style="object-position: 30% 50%;" />
+                </a>
+              </div>
+
+              <div class="dash__row mt-8">
+                <div class="dash__col">
+                  <div class="block-head">
+                    <h2 class="block-title">Next Appointment</h2>
+                    <a href="#appointments" class="see-all">All visits</a>
+                  </div>
+                  <div id="nextAppt"></div>
+                </div>
+                <div class="dash__col">
+                  <div class="block-head">
+                    <h2 class="block-title">Today's Medicines</h2>
+                    <a href="#medications" class="see-all">Manage</a>
+                  </div>
+                  <div class="card" id="dashMeds"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meal plan panel -->
+            <aside class="meal-panel" aria-labelledby="mealTitle">
+              <div class="block-head">
+                <h2 class="block-title" id="mealTitle">My Meal Plan</h2>
+                <button type="button" class="plus-btn" data-add-meal="breakfast" aria-label="Add a meal"><svg><use href="#i-plus"/></svg></button>
+              </div>
+              <div class="date-nav">
+                <button type="button" class="date-nav__btn" id="mealPrev" aria-label="Previous day"><svg><use href="#i-left"/></svg></button>
+                <p class="date-nav__label"><svg class="h-4 w-4"><use href="#i-calendar"/></svg><span id="mealDate">Today</span></p>
+                <button type="button" class="date-nav__btn" id="mealNext" aria-label="Next day"><svg><use href="#i-right"/></svg></button>
+              </div>
+              <div id="mealSlots" class="mt-4 grid gap-3"></div>
+
+              <div class="card mt-4">
+                <div class="block-head !mb-3">
+                  <h3 class="font-semibold">Calories Analysis</h3>
+                  <span class="text-xs text-neutral-400" id="calTotal"></span>
+                </div>
+                <div id="calAnalysis" class="grid gap-3"></div>
+              </div>
+
+              <a href="#trackers" data-scroll="scan-food" class="scan-teaser">
+                <img src="assets/images/scan-food.jpg" alt="" />
+                <span class="scan-teaser__body"><span class="scan-teaser__icon"><svg><use href="#i-camera"/></svg></span>Scan My Food</span>
+              </a>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ===================== APPOINTMENTS ===================== -->
+        <section class="view" id="view-appointments" data-title="Appointments" hidden>
+          <div class="view-head">
+            <div>
+              <h1 class="view-title">Appointments</h1>
+              <p class="view-sub">Book, join and manage your doctor visits.</p>
+            </div>
+          </div>
+          <div class="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
+            <div>
+              <div class="seg-tabs" role="tablist" aria-label="Appointment list">
+                <button type="button" role="tab" class="seg-tab is-active" data-appt-tab="upcoming" aria-selected="true">Upcoming</button>
+                <button type="button" role="tab" class="seg-tab" data-appt-tab="past" aria-selected="false">Past &amp; cancelled</button>
+              </div>
+              <div id="apptList" class="mt-4 grid gap-4"></div>
+            </div>
+
+            <form id="apptForm" class="card card--pad" novalidate>
+              <h2 class="font-serif text-2xl font-semibold">Book a visit</h2>
+              <div class="mt-5 grid gap-4">
+                <div class="segmented">
+                  <label><input type="radio" name="type" value="Video call" checked /><span><svg class="ico-sm"><use href="#i-video"/></svg>Video call</span></label>
+                  <label><input type="radio" name="type" value="In clinic" /><span><svg class="ico-sm"><use href="#i-pin"/></svg>In clinic</span></label>
+                </div>
+                <label class="field field--light"><span>Department</span><select name="dept" id="apDept" required></select></label>
+                <label class="field field--light"><span>Doctor</span><select name="doctor" id="apDoctor"></select></label>
+                <div class="grid grid-cols-2 gap-3">
+                  <label class="field field--light"><span>Date</span><input name="date" id="apDate" type="date" required /></label>
+                  <label class="field field--light"><span>Time</span><select name="time" id="apTime" required></select></label>
+                </div>
+                <label class="field field--light"><span>Reason <small class="font-normal text-neutral-400">(optional)</small></span><input name="notes" type="text" placeholder="e.g. follow-up on blood test" /></label>
+                <button type="submit" class="btn-dark btn-ripple w-full">Confirm booking</button>
+                <p class="form-msg" id="apptMsg" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ===================== MEDICATIONS ===================== -->
+        <section class="view" id="view-medications" data-title="Medications" hidden>
+          <div class="view-head">
+            <div>
+              <h1 class="view-title">Medications</h1>
+              <p class="view-sub">Tick off each dose as you take it. Reminders reset every day.</p>
+            </div>
+          </div>
+          <div class="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
+            <div class="grid gap-6">
+              <div class="adherence" id="adherence"></div>
+              <div class="card card--pad">
+                <h2 class="font-serif text-2xl font-semibold">Today's schedule</h2>
+                <div id="medSchedule" class="mt-4 grid gap-3"></div>
+              </div>
+            </div>
+            <form id="medForm" class="card card--pad self-start" novalidate>
+              <h2 class="font-serif text-2xl font-semibold">Add a medicine</h2>
+              <div class="mt-5 grid gap-4">
+                <label class="field field--light"><span>Medicine name</span><input name="name" type="text" required placeholder="e.g. Amoxicillin" /></label>
+                <div class="grid grid-cols-2 gap-3">
+                  <label class="field field--light"><span>Dose</span><input name="dose" type="text" required placeholder="500 mg" /></label>
+                  <label class="field field--light"><span>Time</span><input name="time" type="time" required value="08:00" /></label>
+                </div>
+                <label class="field field--light"><span>Instructions <small class="font-normal text-neutral-400">(optional)</small></span><input name="note" type="text" placeholder="After meals" /></label>
+                <button type="submit" class="btn-dark btn-ripple w-full">Add to schedule</button>
+                <p class="form-msg" id="medMsg" aria-live="polite"></p>
+              </div>
+              <p class="mt-4 text-xs leading-relaxed text-neutral-500">Always follow your doctor's or pharmacist's instructions. Don't change or stop a medicine without advice.</p>
+            </form>
+          </div>
+        </section>
+
+        <!-- ===================== TRACKERS ===================== -->
+        <section class="view" id="view-trackers" data-title="Trackers" hidden>
+          <div class="view-head">
+            <div>
+              <h1 class="view-title">Health Trackers</h1>
+              <p class="view-sub">Water, sleep, weight, vitals and meals — all in one place.</p>
+            </div>
+          </div>
+
+          <div class="tracker-grid">
+            <!-- Water -->
+            <div class="card card--pad tracker tracker--lime" id="water-tracker">
+              <div class="tracker__head"><h2 class="tracker__title">Drinking Tracker</h2><span class="tracker__icon"><svg><use href="#i-drop"/></svg></span></div>
+              <div class="water">
+                <div class="water__glass" aria-hidden="true"><i id="waterFill"></i></div>
+                <div>
+                  <p class="water__value"><span id="waterValue">0</span><small> ml</small></p>
+                  <p class="text-sm" id="waterGoalText"></p>
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <button type="button" class="chip-btn" data-water="250"><svg><use href="#i-plus"/></svg>250 ml</button>
+                    <button type="button" class="chip-btn" data-water="500"><svg><use href="#i-plus"/></svg>500 ml</button>
+                    <button type="button" class="chip-btn chip-btn--ghost" data-water="-250" aria-label="Remove 250 ml"><svg><use href="#i-minus"/></svg></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sleep -->
+            <div class="card card--pad tracker tracker--dark" id="sleep-tracker">
+              <div class="tracker__head"><h2 class="tracker__title">Sleep Tracker</h2><span class="tracker__icon"><svg><use href="#i-moon"/></svg></span></div>
+              <p class="mt-2 text-sm text-neutral-400">Average last 7 nights: <b class="text-white" id="sleepAvg"></b></p>
+              <div class="bars" id="sleepBars"></div>
+              <form id="sleepForm" class="inline-form">
+                <label class="sr-only" for="sleepHours">Hours slept last night</label>
+                <input id="sleepHours" type="number" min="0" max="16" step="0.25" placeholder="Hours last night" required />
+                <button type="submit" class="btn-lime btn-ripple">Log sleep</button>
+              </form>
+            </div>
+
+            <!-- Weight -->
+            <div class="card card--pad tracker" id="weight-tracker">
+              <div class="tracker__head"><h2 class="tracker__title">Weight</h2><span class="tracker__icon tracker__icon--orange"><svg><use href="#i-scale"/></svg></span></div>
+              <p class="mt-2 text-sm text-neutral-500"><b class="text-ink" id="weightNow"></b> · <span id="weightDelta"></span></p>
+              <svg class="line-chart" id="weightChart" viewBox="0 0 320 120" preserveAspectRatio="none" role="img" aria-label="Weight trend over the last 30 days"></svg>
+              <form id="weightForm" class="inline-form">
+                <label class="sr-only" for="weightInput">Today's weight in kg</label>
+                <input id="weightInput" type="number" min="25" max="250" step="0.1" placeholder="Today's weight (kg)" required />
+                <button type="submit" class="btn-dark btn-ripple">Save</button>
+              </form>
+            </div>
+
+            <!-- Vitals -->
+            <div class="card card--pad tracker" id="vitals-tracker">
+              <div class="tracker__head"><h2 class="tracker__title">Vitals</h2><span class="tracker__icon tracker__icon--red"><svg><use href="#i-heart"/></svg></span></div>
+              <div class="vitals" id="vitalsNow"></div>
+              <form id="vitalsForm" class="vitals-form">
+                <label class="field field--light"><span>Heart rate</span><input name="bpm" type="number" min="30" max="220" placeholder="bpm" required /></label>
+                <label class="field field--light"><span>Systolic</span><input name="sys" type="number" min="70" max="250" placeholder="mmHg" required /></label>
+                <label class="field field--light"><span>Diastolic</span><input name="dia" type="number" min="40" max="150" placeholder="mmHg" required /></label>
+                <button type="submit" class="btn-dark btn-ripple">Log reading</button>
+              </form>
+              <p class="form-msg" id="vitalsMsg" aria-live="polite"></p>
+            </div>
+
+            <!-- Scan my food -->
+            <div class="card tracker tracker--scan" id="scan-food">
+              <div class="scan" id="scanPreview">
+                <img src="assets/images/scan-food.jpg" alt="Salad photo preview" id="scanImg" />
+                <div class="scan__line" aria-hidden="true"></div>
+                <div class="scan__top">
+                  <span class="scan__chip">Scan My Food</span>
+                  <label class="scan__cam" title="Take or upload a meal photo">
+                    <input type="file" accept="image/*" capture="environment" id="scanInput" class="sr-only" />
+                    <svg aria-hidden="true"><use href="#i-camera"/></svg><span class="sr-only">Take or upload a meal photo</span>
+                  </label>
+                </div>
+              </div>
+              <form id="scanForm" class="scan-form">
+                <p class="text-sm text-neutral-500">Snap your plate, then log it to your meal plan. Enter the calories from the label or your dietitian's guide.</p>
+                <div class="grid gap-3 sm:grid-cols-3">
+                  <label class="field field--light sm:col-span-2"><span>Meal name</span><input name="name" type="text" required placeholder="Chicken salad" /></label>
+                  <label class="field field--light"><span>Calories</span><input name="kcal" type="number" min="1" max="3000" required placeholder="kcal" /></label>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <div class="segmented">
+                    <label><input type="radio" name="slot" value="breakfast" /><span>Breakfast</span></label>
+                    <label><input type="radio" name="slot" value="lunch" checked /><span>Lunch</span></label>
+                    <label><input type="radio" name="slot" value="dinner" /><span>Dinner</span></label>
+                  </div>
+                  <button type="submit" class="btn-lime btn-ripple">Add to meal plan</button>
+                </div>
+                <p class="form-msg" id="scanMsg" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== RECORDS ===================== -->
+        <section class="view" id="view-records" data-title="Records" hidden>
+          <div class="view-head">
+            <div>
+              <h1 class="view-title">Medical Records</h1>
+              <p class="view-sub">Lab results, prescriptions and visit summaries.</p>
+            </div>
+            <button type="button" class="btn-dark btn-ripple" id="downloadReport"><svg class="ico-sm"><use href="#i-download"/></svg>Download summary</button>
+          </div>
+          <div class="grid gap-6 xl:grid-cols-[1.5fr_1fr]">
+            <div class="card card--pad overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class="font-serif text-2xl font-semibold">Latest blood test</h2>
+                <span class="chip">Collected <span id="labDate"></span></span>
+              </div>
+              <div class="table-wrap mt-5">
+                <table class="lab-table">
+                  <thead><tr><th scope="col">Test</th><th scope="col">Result</th><th scope="col">Reference</th><th scope="col">Status</th></tr></thead>
+                  <tbody id="labRows"></tbody>
+                </table>
+              </div>
+              <p class="mt-4 text-xs text-neutral-500">Reviewed by Dr. Min-ji Lee: "Results look good overall. LDL is slightly high — let's recheck in 3 months alongside diet changes."</p>
+            </div>
+            <div class="grid gap-6 self-start">
+              <div class="card card--pad">
+                <h2 class="font-serif text-2xl font-semibold">Prescriptions</h2>
+                <div id="rxList" class="mt-4 grid gap-3"></div>
+              </div>
+              <div class="card card--pad">
+                <h2 class="font-serif text-2xl font-semibold">Documents</h2>
+                <div id="docList" class="mt-4 grid gap-2"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== PROFILE ===================== -->
+        <section class="view" id="view-profile" data-title="Profile" hidden>
+          <div class="view-head">
+            <div>
+              <h1 class="view-title">Profile &amp; Goals</h1>
+              <p class="view-sub">Your details personalise targets across the app.</p>
+            </div>
+          </div>
+          <div class="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
+            <form id="profileForm" class="card card--pad" novalidate>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="field field--light sm:col-span-2"><span>Full name</span><input name="name" type="text" required /></label>
+                <label class="field field--light"><span>Age</span><input name="age" type="number" min="1" max="120" required /></label>
+                <label class="field field--light"><span>Sex</span><select name="sex"><option value="f">Female</option><option value="m">Male</option></select></label>
+                <label class="field field--light"><span>Height (cm)</span><input name="height" type="number" min="80" max="230" required /></label>
+                <label class="field field--light"><span>Blood type</span><select name="blood"><option>A+</option><option>A−</option><option>B+</option><option>B−</option><option>AB+</option><option>AB−</option><option>O+</option><option>O−</option></select></label>
+                <label class="field field--light"><span>Daily water goal (ml)</span><input name="waterGoal" type="number" min="500" max="6000" step="50" required /></label>
+                <label class="field field--light"><span>Daily calorie goal (kcal)</span><input name="calorieGoal" type="number" min="800" max="5000" step="10" required /></label>
+                <label class="field field--light sm:col-span-2"><span>Allergies</span><input name="allergies" type="text" placeholder="e.g. Penicillin, peanuts" /></label>
+              </div>
+              <div class="mt-6 flex flex-wrap items-center gap-3">
+                <button type="submit" class="btn-dark btn-ripple">Save changes</button>
+                <p class="form-msg" id="profileMsg" aria-live="polite"></p>
+              </div>
+            </form>
+            <div class="grid gap-6 self-start">
+              <div class="card card--pad card--ink">
+                <p class="text-sm text-neutral-400">Body mass index</p>
+                <p class="mt-1 font-serif text-5xl font-semibold" id="profileBmi">–</p>
+                <p class="mt-2 text-sm text-lime" id="profileBmiTag"></p>
+                <p class="mt-4 text-xs text-neutral-500">Based on your height and latest logged weight.</p>
+              </div>
+              <div class="card card--pad">
+                <h2 class="font-semibold">Demo data</h2>
+                <p class="mt-2 text-sm text-neutral-500">Everything you enter is saved only in this browser. Reset to start over with sample data.</p>
+                <button type="button" class="btn-outline mt-4" id="resetData">Reset demo data</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add meal dialog -->
+  <dialog id="mealDialog" class="dialog">
+    <form method="dialog" id="mealForm" class="dialog__box">
+      <div class="flex items-center justify-between">
+        <h2 class="font-serif text-2xl font-semibold" id="mealDialogTitle">Add to breakfast</h2>
+        <button type="button" class="icon-btn icon-btn--sm" data-close-dialog aria-label="Close"><svg><use href="#i-x"/></svg></button>
+      </div>
+      <p class="mt-1 text-sm text-neutral-500">Pick a quick item or enter your own.</p>
+      <div class="quick-foods mt-4" id="quickFoods"></div>
+      <input type="hidden" name="slot" value="breakfast" />
+      <div class="mt-4 grid grid-cols-[1fr_120px] gap-3">
+        <label class="field field--light"><span>Food</span><input name="name" type="text" required placeholder="e.g. Oatmeal" /></label>
+        <label class="field field--light"><span>Calories</span><input name="kcal" type="number" min="1" max="3000" required placeholder="kcal" /></label>
+      </div>
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" class="btn-outline" data-close-dialog>Cancel</button>
+        <button type="submit" class="btn-dark btn-ripple" value="save">Add food</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Video visit dialog -->
+  <dialog id="callDialog" class="dialog dialog--dark">
+    <div class="dialog__box text-center">
+      <img src="" alt="" id="callImg" class="mx-auto h-24 w-24 rounded-full object-cover object-top ring-4 ring-lime" />
+      <h2 class="mt-5 font-serif text-2xl font-semibold text-white" id="callTitle">Video visit</h2>
+      <p class="mt-2 text-sm text-neutral-400" id="callText"></p>
+      <div class="call-dots mt-6" aria-hidden="true"><i></i><i></i><i></i></div>
+      <button type="button" class="btn-lime mt-8" data-close-dialog>Close</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

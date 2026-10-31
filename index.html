@@ -3,83 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NEWME — Your Health, Our App</title>
-  <meta name="description" content="NEWME is your all-in-one health and fitness app: home workouts, drink and food tracking, real-time insights and expert trainers. Available on iOS and Android." />
+  <title>NEWME Health — Your Health, Our Priority</title>
+  <meta name="description" content="NEWME Health: book doctor appointments, online consultations, lab tests at home, health check-up packages and a free patient web app for your records, medications and health trackers." />
   <meta name="theme-color" content="#0B0D0C" />
-  <meta property="og:title" content="NEWME — Your Health, Our App" />
-  <meta property="og:description" content="Achieve your health goals with workouts, tracking and expert support in one app." />
+  <meta property="og:title" content="NEWME Health — Your Health, Our Priority" />
+  <meta property="og:description" content="Trusted specialists, online consultations and a patient web app — all in one place." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/images/hero-model-portrait.jpg" />
+  <meta property="og:image" content="assets/images/hero-doctor.jpg" />
 
-  <!-- Fonts: editorial serif for headings, Inter for body -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind (Play CDN) + theme tokens -->
   <script src="https://cdn.tailwindcss.com/3.4.16"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          colors: {
-            paper: '#F5F5F3',
-            ink: '#0B0D0C',
-            lime: '#C7F33A',
-            mist: '#ECECE9',
-          },
+          colors: { paper: '#F5F5F3', ink: '#0B0D0C', lime: '#C7F33A', mist: '#ECECE9' },
           fontFamily: {
             serif: ['"Playfair Display"', 'Georgia', 'serif'],
             sans: ['Inter', 'system-ui', 'sans-serif'],
-          },
-          borderRadius: {
-            '4xl': '2rem',
-            '5xl': '2.5rem',
           },
         },
       },
     };
   </script>
 
-  <link rel="preload" as="image" href="assets/images/hero-model-portrait.jpg" />
+  <link rel="preload" as="image" href="assets/images/hero-doctor.jpg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body class="bg-paper font-sans text-ink antialiased">
   <a href="#main" class="skip-link">Skip to content</a>
 
+  <!-- Icon sprite -->
+  <svg width="0" height="0" class="absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-stethoscope" viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3M4 3h4M12 3h4M10 13v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-8.7A5.2 5.2 0 0 1 12 6.3a5.2 5.2 0 0 1 9.2 5c-2.2 4.3-9.2 8.7-9.2 8.7z"/><path d="M3.5 12h4l1.5-3 3 6 1.5-3h7"/></symbol>
+      <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V6a2 2 0 0 0-3-2zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1"/><path d="M12 10h3M12 14h2"/></symbol>
+      <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M9.5 15a3.5 3.5 0 0 0 5 0M12 3c-1 1.5-1 3 1 3.5"/></symbol>
+      <symbol id="i-bone" viewBox="0 0 24 24"><path d="M17 3a3 3 0 0 0-2.8 4l-7.2 7.2A3 3 0 1 0 7 20a3 3 0 1 0 2.8-4l7.2-7.2A3 3 0 1 0 17 3z"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s7 7.2 7 12a7 7 0 0 1-14 0c0-4.8 7-12 7-12z"/><path d="M9 15a3 3 0 0 0 3 3"/></symbol>
+      <symbol id="i-tooth" viewBox="0 0 24 24"><path d="M7 3c-2.5 0-4 2-4 4.5 0 3 1.5 4 2 7 .5 3 1 6.5 3 6.5s2-4 4-4 2 4 4 4 2.5-3.5 3-6.5c.5-3 2-4 2-7C21 5 19.5 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="3"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+      <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.5L14 9V3M7 15h10"/></symbol>
+      <symbol id="i-pill" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-45 12 12)"/><path d="M9.2 9.2l5.6 5.6"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+      <symbol id="i-siren" viewBox="0 0 24 24"><path d="M7 18v-6a5 5 0 0 1 10 0v6M5 21h14M12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/><rect x="5" y="18" width="14" height="3" rx="1"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 11l2 2 4-4M9 17h6"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===================== EMERGENCY TOP BAR ===================== -->
+  <div class="topbar">
+    <div class="container-x flex items-center justify-between gap-4 py-2 text-xs">
+      <p class="flex items-center gap-2">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span>24/7 Emergency: <a href="tel:+18005550199" class="font-semibold text-lime hover:underline">+1 (800) 555-0199</a></span>
+      </p>
+      <p class="hidden items-center gap-5 text-neutral-400 sm:flex">
+        <span class="flex items-center gap-1.5"><svg class="ico-sm"><use href="#i-clock"/></svg>Mon–Sat 8:00–20:00</span>
+        <span class="flex items-center gap-1.5"><svg class="ico-sm"><use href="#i-pin"/></svg>148 clinics worldwide</span>
+      </p>
+    </div>
+  </div>
+
   <!-- ===================== NAVBAR ===================== -->
   <header id="navbar" class="navbar sticky top-0 z-50">
-    <nav class="container-x flex h-20 items-center justify-between" aria-label="Primary">
-      <a href="#home" class="logo" aria-label="NEWME home">
-        <span class="logo__n">N</span><span>EWME</span>
+    <nav class="container-x flex h-20 items-center justify-between gap-6" aria-label="Primary">
+      <a href="#home" class="logo" aria-label="NEWME Health home">
+        <span class="logo__n">N</span><span>EWME</span><span class="logo__tag">Health</span>
       </a>
 
-      <ul class="hidden items-center gap-10 text-sm font-medium md:flex">
+      <ul class="hidden items-center gap-8 text-sm font-medium lg:flex">
         <li><a href="#home" class="nav-link is-active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#features" class="nav-link">Features</a></li>
-        <li><a href="#download" class="nav-link">Download</a></li>
-        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+        <li><a href="#departments" class="nav-link">Departments</a></li>
+        <li><a href="#doctors" class="nav-link">Doctors</a></li>
+        <li><a href="#tools" class="nav-link">Health Tools</a></li>
+        <li><a href="#plans" class="nav-link">Check-ups</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
 
-      <a href="#contact" class="btn-dark btn-ripple hidden md:inline-flex">Contact Us</a>
+      <div class="hidden items-center gap-3 lg:flex">
+        <a href="app.html" class="btn-outline">Open Web App</a>
+        <a href="#appointment" class="btn-dark btn-ripple">Book Appointment</a>
+      </div>
 
-      <!-- Mobile hamburger -->
-      <button id="menuToggle" class="hamburger md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <button id="menuToggle" class="hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </nav>
 
-    <!-- Mobile menu panel -->
-    <div id="mobileMenu" class="mobile-menu md:hidden" hidden>
+    <div id="mobileMenu" class="mobile-menu lg:hidden" hidden>
       <ul class="container-x flex flex-col gap-1 pb-6 pt-2 text-lg font-medium">
         <li><a href="#home" class="mobile-link">Home</a></li>
-        <li><a href="#about" class="mobile-link">About</a></li>
-        <li><a href="#features" class="mobile-link">Features</a></li>
-        <li><a href="#download" class="mobile-link">Download</a></li>
-        <li><a href="#pricing" class="mobile-link">Pricing</a></li>
-        <li class="pt-3"><a href="#contact" class="btn-dark btn-ripple w-full justify-center mobile-link">Contact Us</a></li>
+        <li><a href="#departments" class="mobile-link">Departments</a></li>
+        <li><a href="#doctors" class="mobile-link">Doctors</a></li>
+        <li><a href="#tools" class="mobile-link">Health Tools</a></li>
+        <li><a href="#plans" class="mobile-link">Check-ups</a></li>
+        <li><a href="#contact" class="mobile-link">Contact</a></li>
+        <li class="grid gap-3 pt-4 sm:grid-cols-2">
+          <a href="app.html" class="btn-outline justify-center">Open Web App</a>
+          <a href="#appointment" class="btn-dark btn-ripple mobile-link justify-center">Book Appointment</a>
+        </li>
       </ul>
     </div>
   </header>
@@ -87,236 +128,491 @@
   <main id="main">
     <!-- ===================== HERO ===================== -->
     <section id="home" class="container-x pb-16 pt-8 lg:pt-12">
-      <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
-
-        <!-- Left column -->
+      <div class="grid items-start gap-12 lg:grid-cols-[1fr_1fr] lg:gap-12">
         <div class="flex flex-col">
-          <h1 class="reveal font-serif text-[3.1rem] font-semibold leading-[0.98] tracking-tight sm:text-7xl xl:text-[5.6rem]">
-            Your Health,<br />Our App<span class="hero-dot" aria-hidden="true"></span>
+          <p class="reveal eyebrow"><svg class="ico-sm"><use href="#i-shield"/></svg>Accredited care · 132 specialists</p>
+          <h1 class="reveal mt-5 font-serif text-[3rem] font-semibold leading-[0.98] tracking-tight sm:text-7xl xl:text-[5.4rem]" data-delay="80">
+            Your Health,<br />Our Priority<span class="hero-dot" aria-hidden="true"></span>
           </h1>
 
-          <p class="reveal mt-6 max-w-md text-[15px] leading-relaxed text-neutral-500" data-delay="100">
-            We're dedicated to helping you achieve your health goals, providing tools,
-            support, and resources for a healthier life.
+          <p class="reveal mt-6 max-w-md text-[15px] leading-relaxed text-neutral-500" data-delay="140">
+            Book trusted doctors in minutes, consult online from home, get lab tests collected at your door,
+            and keep every report and prescription in one secure web app.
           </p>
 
-          <div class="reveal mt-8" data-delay="200">
-            <a href="#download" class="pill-cta btn-ripple">
-              <span class="pill-cta__label">Join Us Now</span>
-              <span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <div class="reveal mt-8 flex flex-wrap items-center gap-4" data-delay="200">
+            <a href="#appointment" class="pill-cta btn-ripple">
+              <span class="pill-cta__label">Book Appointment</span>
+              <span class="arrow-circle" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
             </a>
+            <a href="app.html" class="link-arrow">Open Web App <svg><use href="#i-arrow"/></svg></a>
           </div>
 
-          <!-- Download card -->
-          <article class="reveal download-card mt-12" data-delay="300" aria-labelledby="dl-title">
-            <div class="flex items-start gap-5">
-              <div class="qr" aria-label="QR code to download the NEWME app" role="img">
-                <canvas id="qrCanvas" width="168" height="168"></canvas>
-              </div>
-              <div class="flex-1">
-                <h2 id="dl-title" class="font-serif text-xl font-semibold text-white sm:text-2xl">Download Our App</h2>
-                <p class="mt-2 text-sm leading-relaxed text-neutral-400">Scan code, get 3 months free access on our platform</p>
-              </div>
-              <a href="#download" class="arrow-circle arrow-circle--lg shrink-0" aria-label="Go to download section">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
+          <!-- Quick doctor finder -->
+          <form id="quickFind" class="reveal finder mt-12" data-delay="260" aria-labelledby="finder-title">
+            <div class="flex items-center justify-between gap-4">
+              <h2 id="finder-title" class="font-serif text-xl font-semibold text-white sm:text-2xl">Find a Doctor</h2>
+              <span class="chip-lime">Next slot: Today 2:30 PM</span>
             </div>
-
-            <div class="mt-7 flex flex-wrap items-end justify-between gap-5">
+            <div class="mt-5 grid gap-3 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_auto]">
+              <label class="field-dark">
+                <span class="sr-only">Department</span>
+                <svg class="ico-sm"><use href="#i-grid"/></svg>
+                <select id="qfDept" required>
+                  <option value="">Choose department</option>
+                </select>
+              </label>
+              <label class="field-dark">
+                <span class="sr-only">Preferred date</span>
+                <svg class="ico-sm"><use href="#i-calendar"/></svg>
+                <input id="qfDate" type="date" required />
+              </label>
+              <button type="submit" class="btn-lime btn-ripple"><svg class="ico-sm"><use href="#i-search"/></svg>Search</button>
+            </div>
+            <div class="mt-6 flex flex-wrap items-end justify-between gap-5 border-t border-white/10 pt-5">
               <div class="flex gap-10">
                 <div>
-                  <p class="font-serif text-3xl font-semibold text-white"><span data-count="200">0</span>k</p>
-                  <p class="mt-1 text-sm text-neutral-400">Connected Users</p>
+                  <p class="font-serif text-3xl font-semibold text-white"><span data-count="200">0</span>k+</p>
+                  <p class="mt-1 text-sm text-neutral-400">Patients served</p>
                 </div>
                 <div>
                   <p class="font-serif text-3xl font-semibold text-white"><span data-count="132">0</span></p>
-                  <p class="mt-1 text-sm text-neutral-400">Skilled Trainers</p>
+                  <p class="mt-1 text-sm text-neutral-400">Specialists</p>
                 </div>
               </div>
-              <div class="avatars" aria-label="Some of our community members">
-                <img src="assets/images/avatar-1.jpg" alt="" width="44" height="44" loading="lazy" />
-                <img src="assets/images/avatar-2.jpg" alt="" width="44" height="44" loading="lazy" />
-                <img src="assets/images/avatar-3.jpg" alt="" width="44" height="44" loading="lazy" />
+              <div class="avatars" aria-label="Some of our doctors">
+                <img src="assets/images/doctor-1.jpg" alt="" width="44" height="44" loading="lazy" />
+                <img src="assets/images/doctor-3.jpg" alt="" width="44" height="44" loading="lazy" />
+                <img src="assets/images/doctor-4.jpg" alt="" width="44" height="44" loading="lazy" />
+                <span class="avatars__more">+129</span>
               </div>
             </div>
-          </article>
+          </form>
         </div>
 
-        <!-- Right column: model + floating cards -->
+        <!-- Visual -->
         <div class="hero-visual reveal" data-delay="150">
           <div class="hero-visual__frame">
-            <img src="assets/images/hero-model-portrait.jpg"
-                 alt="Smiling Korean fitness model lifting a dumbbell during a workout class"
-                 width="700" height="933" fetchpriority="high" class="hero-visual__img" />
-            <div class="hero-visual__fade" aria-hidden="true"></div>
+            <img src="assets/images/hero-doctor.jpg" alt="Smiling Korean doctor in a white coat holding a patient folder"
+                 width="1100" height="1650" fetchpriority="high" class="hero-visual__img" />
           </div>
 
-          <!-- Floating app card -->
-          <a href="#download" class="app-card float-slow" aria-label="Our app is available on iOS and Android. Check it out">
-            <div class="app-card__phones" aria-hidden="true">
-              <div class="phone phone--dark" style="--pw: 64px; transform: rotate(-8deg) translateX(6px);">
-                <div class="phone__screen phone__screen--dark"><span class="phone__island"></span>
-                  <div class="mini-ring"></div>
-                </div>
-              </div>
-              <div class="phone" style="--pw: 70px; margin-left: -18px;">
-                <div class="phone__screen"><span class="phone__island"></span>
-                  <div class="mini-card"></div>
-                  <div class="mini-line"></div><div class="mini-line w-60"></div>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-1 flex-col justify-between gap-3">
-              <p class="text-[13px] font-medium leading-snug sm:text-sm">Our App is available on iOS and Android</p>
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-serif text-sm font-semibold">Check it Out</span>
-                <span class="arrow-circle arrow-circle--dark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-              </div>
-            </div>
+          <a href="app.html#appointments" class="hero-card hero-card--lime float-slow" aria-label="Online consultation available 24/7. Start a video visit">
+            <span class="hero-card__icon"><svg><use href="#i-video"/></svg></span>
+            <span class="flex-1">
+              <span class="block text-sm font-semibold">Online Consultation</span>
+              <span class="block text-xs opacity-75">Doctors available 24/7</span>
+            </span>
+            <span class="arrow-circle arrow-circle--dark" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
           </a>
 
-          <!-- Video card -->
-          <div class="video-card">
-            <button type="button" class="play-btn" id="playBtn" aria-label="Play workout video">
-              <span class="play-btn__ring" aria-hidden="true"></span>
-              <span class="play-btn__core" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-              <span class="text-sm font-medium">Play Video</span>
-            </button>
-            <p class="mt-auto text-xl font-semibold leading-tight tracking-tight sm:text-2xl">30+ Home Workout<br />Video Collections</p>
+          <div class="hero-card hero-card--glass hero-card--rating">
+            <div class="flex items-center gap-1 text-ink" aria-label="Rated 4.9 out of 5">
+              <svg class="star"><use href="#i-star"/></svg><svg class="star"><use href="#i-star"/></svg><svg class="star"><use href="#i-star"/></svg><svg class="star"><use href="#i-star"/></svg><svg class="star"><use href="#i-star"/></svg>
+            </div>
+            <p class="mt-2 font-serif text-3xl font-semibold">4.9</p>
+            <p class="text-xs text-neutral-500">from 12,400+ patient reviews</p>
+          </div>
+
+          <div class="hero-card hero-card--dark hero-card--pulse" aria-label="Live heart rate monitoring">
+            <svg class="ecg" viewBox="0 0 120 40" aria-hidden="true"><path d="M0 20h30l6-12 8 26 8-22 6 8h62"/></svg>
+            <p class="text-xs text-neutral-400">Heart rate</p>
+            <p class="font-serif text-2xl font-semibold text-white">72 <span class="font-sans text-xs font-normal text-lime">bpm</span></p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== STATS ===================== -->
-    <section id="about" class="container-x" aria-label="NEWME in numbers">
+    <section id="about-stats" class="container-x" aria-label="NEWME Health in numbers">
       <div class="stats reveal">
         <div class="stat">
           <p class="stat__num"><span data-count="27">0</span></p>
-          <p class="stat__label">Years experience in health industries by experts</p>
+          <p class="stat__label">Years of trusted medical experience</p>
         </div>
         <div class="stat">
           <p class="stat__num"><span data-count="148">0</span></p>
-          <p class="stat__label">Branch offices giving you the best services worldwide</p>
+          <p class="stat__label">Clinics and partner hospitals worldwide</p>
         </div>
         <div class="stat">
-          <p class="stat__num"><span data-count="1000">0</span></p>
-          <p class="stat__label">New users log in to our app every single day</p>
+          <p class="stat__num"><span data-count="1000">0</span>+</p>
+          <p class="stat__label">Consultations completed every single day</p>
         </div>
         <div class="stat">
-          <p class="stat__num"><span data-count="120">0</span>k+</p>
-          <p class="stat__label">Users download our app every single day</p>
+          <p class="stat__num"><span data-count="98">0</span>%</p>
+          <p class="stat__label">Patients who would recommend us to family</p>
         </div>
       </div>
     </section>
 
-    <!-- ===================== FEATURES ===================== -->
-    <section id="features" class="container-x section-pad">
+    <!-- ===================== DEPARTMENTS ===================== -->
+    <section id="departments" class="container-x section-pad">
+      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div>
+          <p class="reveal eyebrow">Departments</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Specialist Care<br />for Every Need</h2>
+        </div>
+        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500" data-delay="120">
+          From everyday check-ups to specialist treatment, our departments work together so you get
+          one connected plan — not a pile of referrals.
+        </p>
+      </div>
+      <div id="deptGrid" class="mt-14 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4"></div>
+    </section>
+
+    <!-- ===================== SERVICES SLIDER ===================== -->
+    <section id="services" class="container-x section-pad pt-0">
       <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-        <h2 class="reveal section-title">Best Features<br />We Offer for You</h2>
-        <div class="reveal flex max-w-md flex-col gap-6 lg:items-end" data-delay="100">
+        <div>
+          <p class="reveal eyebrow">Services</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Complete Care,<br />In Clinic &amp; Online</h2>
+        </div>
+        <div class="reveal flex max-w-md flex-col gap-6 lg:items-end" data-delay="120">
           <p class="text-[15px] leading-relaxed text-neutral-500">
-            We're dedicated to helping you achieve your health goals, providing you with the tools, support, and resources.
+            Everything you need to stay well, connected through one patient account.
           </p>
           <div class="flex items-center gap-4">
-            <button type="button" class="slider-btn" id="featPrev" aria-label="Previous features">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-            </button>
-            <button type="button" class="slider-btn slider-btn--lime" id="featNext" aria-label="Next features">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
+            <button type="button" class="slider-btn" id="featPrev" aria-label="Previous services"><svg><use href="#i-arrow" transform="rotate(180 12 12)"/></svg></button>
+            <button type="button" class="slider-btn slider-btn--lime" id="featNext" aria-label="Next services"><svg><use href="#i-arrow"/></svg></button>
           </div>
         </div>
       </div>
 
-      <div class="feature-track mt-14" id="featureTrack" tabindex="0" aria-label="Feature cards, scroll horizontally">
-        <article class="feature-card reveal">
-          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 30c0-6 6-6 8-11s-2-9 4-11 9 3 8 8-6 6-2 10 12-2 14 4-3 11-9 11-8-6-12-6-11 2-11-5zm0 0h10"/></svg>
-          <h3 class="feature-card__title">Tracking</h3>
-          <p class="feature-card__text">With our tracking feature, you can follow workouts, steps, heart rate, sleep and more — all synced in one place so nothing slips.</p>
+      <div class="feature-track mt-14" id="featureTrack" tabindex="0" aria-label="Services, scroll horizontally">
+        <article class="svc-card reveal">
+          <img src="assets/images/telemedicine.jpg" alt="Doctor on a phone call reviewing patient notes" loading="lazy" />
+          <div class="svc-card__body">
+            <span class="svc-card__icon"><svg><use href="#i-video"/></svg></span>
+            <h3 class="svc-card__title">Telemedicine</h3>
+            <p class="svc-card__text">Video visits with licensed doctors in under 15 minutes, day or night.</p>
+          </div>
         </article>
-
-        <article class="feature-card reveal" data-delay="100">
-          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="3"/><path d="M6 15h36M10 11.5h2M14 11.5h2M11 34l8-9 6 5 6-8 6 7"/></svg>
-          <h3 class="feature-card__title">Insight</h3>
-          <p class="feature-card__text">Clear weekly reports turn your data into simple, personal insights, so you know exactly what's working and what to adjust next.</p>
+        <article class="svc-card reveal" data-delay="80">
+          <img src="assets/images/lab-test.jpg" alt="Health worker in protective gear preparing a test swab" loading="lazy" />
+          <div class="svc-card__body">
+            <span class="svc-card__icon"><svg><use href="#i-flask"/></svg></span>
+            <h3 class="svc-card__title">Lab Tests at Home</h3>
+            <p class="svc-card__text">Samples collected at your door, results in your web app within 24 hours.</p>
+          </div>
         </article>
-
-        <article class="feature-card feature-card--accent reveal" data-delay="200">
-          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 4h8M24 4v5"/><circle cx="24" cy="27" r="16" class="fill"/><path d="M12 27h6l3-6 5 12 3-6h7" class="cut"/></svg>
-          <h3 class="feature-card__title">Real Time</h3>
-          <p class="feature-card__text">Live heart-rate zones, calorie burn and pacing feedback while you train, so every session hits the right intensity.</p>
-          <a href="#services" class="discover-btn btn-ripple">Discover More</a>
+        <article class="svc-card svc-card--accent reveal" data-delay="160">
+          <img src="assets/images/pharmacy.jpg" alt="Stethoscope beside pill organizer and medication" loading="lazy" />
+          <div class="svc-card__body">
+            <span class="svc-card__icon"><svg><use href="#i-pill"/></svg></span>
+            <h3 class="svc-card__title">E-Prescriptions</h3>
+            <p class="svc-card__text">Prescriptions sent straight to your pharmacy, with refill reminders.</p>
+          </div>
         </article>
-
-        <article class="feature-card reveal" data-delay="300">
-          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="16" r="7"/><path d="M10 42c0-8 6-13 14-13s14 5 14 13M34 8l4-3M38 14h5"/></svg>
-          <h3 class="feature-card__title">Coaching</h3>
-          <p class="feature-card__text">Chat with 132 certified trainers who build plans around your schedule, goals and fitness level — and keep you accountable.</p>
+        <article class="svc-card reveal" data-delay="240">
+          <img src="assets/images/digital-health.jpg" alt="Doctors reviewing scan results on a monitor" loading="lazy" />
+          <div class="svc-card__body">
+            <span class="svc-card__icon"><svg><use href="#i-file"/></svg></span>
+            <h3 class="svc-card__title">Digital Health Records</h3>
+            <p class="svc-card__text">Reports, scans and history in one secure place you can share anytime.</p>
+          </div>
         </article>
-
-        <article class="feature-card reveal" data-delay="400">
-          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a16 16 0 1 0 10 26A13 13 0 0 1 30 8z"/><path d="M34 14h6l-6 7h6"/></svg>
-          <h3 class="feature-card__title">Sleep</h3>
-          <p class="feature-card__text">Understand your recovery with sleep stages, bedtime reminders and gentle wind-down routines for deeper rest.</p>
+        <article class="svc-card reveal" data-delay="320">
+          <img src="assets/images/care-ward.jpg" alt="Doctor talking with a patient in a hospital bed" loading="lazy" />
+          <div class="svc-card__body">
+            <span class="svc-card__icon"><svg><use href="#i-siren"/></svg></span>
+            <h3 class="svc-card__title">24/7 Emergency</h3>
+            <p class="svc-card__text">Round-the-clock emergency teams and ambulance support in every city.</p>
+          </div>
+        </article>
+        <article class="svc-card reveal" data-delay="400">
+          <img src="assets/images/checkup.jpg" alt="Nurse measuring a patient's blood pressure" loading="lazy" style="object-position: 50% 35%;" />
+          <div class="svc-card__body">
+            <span class="svc-card__icon"><svg><use href="#i-clipboard"/></svg></span>
+            <h3 class="svc-card__title">Health Check-ups</h3>
+            <p class="svc-card__text">Preventive packages that catch problems early, explained in plain language.</p>
+          </div>
         </article>
       </div>
     </section>
 
-    <!-- ===================== SERVICES ===================== -->
-    <section id="services" class="container-x section-pad pt-0">
+    <!-- ===================== WHY US ===================== -->
+    <section id="about" class="container-x section-pad pt-0">
+      <div class="grid items-center gap-14 lg:grid-cols-2">
+        <div class="why-collage reveal">
+          <img src="assets/images/consult-asian.jpg" alt="Doctor reviewing documents with a patient" class="why-collage__main" loading="lazy" />
+          <img src="assets/images/lab.jpg" alt="Modern hospital laboratory" class="why-collage__small" loading="lazy" />
+          <div class="why-collage__badge">
+            <p class="font-serif text-4xl font-semibold">27+</p>
+            <p class="text-xs leading-snug">years caring for<br />families</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="reveal eyebrow">Why NEWME Health</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Care That Feels<br />Personal Again</h2>
+          <p class="reveal mt-6 max-w-lg text-[15px] leading-relaxed text-neutral-500" data-delay="120">
+            We combine experienced specialists with simple digital tools, so you spend less time in waiting rooms
+            and more time feeling well.
+          </p>
+          <ul class="reveal mt-8 grid gap-4 sm:grid-cols-2" data-delay="180">
+            <li class="why-item"><span class="why-item__tick"><svg><use href="#i-check"/></svg></span><span><b>Same-day appointments</b>Most specialists available within 24 hours.</span></li>
+            <li class="why-item"><span class="why-item__tick"><svg><use href="#i-check"/></svg></span><span><b>Transparent pricing</b>Know the cost before you book. No surprises.</span></li>
+            <li class="why-item"><span class="why-item__tick"><svg><use href="#i-check"/></svg></span><span><b>Your records, your control</b>Encrypted, and shared only when you choose.</span></li>
+            <li class="why-item"><span class="why-item__tick"><svg><use href="#i-check"/></svg></span><span><b>Insurance friendly</b>We work with 60+ major insurance providers.</span></li>
+          </ul>
+          <div class="reveal mt-10" data-delay="240">
+            <a href="#doctors" class="pill-cta btn-ripple">
+              <span class="pill-cta__label">Meet Our Doctors</span>
+              <span class="arrow-circle" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DOCTORS ===================== -->
+    <section id="doctors" class="container-x section-pad pt-0">
+      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div>
+          <p class="reveal eyebrow">Our Doctors</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Meet the Specialists<br />Behind Your Care</h2>
+        </div>
+        <label class="reveal search-field" data-delay="120">
+          <svg class="ico-sm"><use href="#i-search"/></svg>
+          <span class="sr-only">Search doctors</span>
+          <input id="doctorSearch" type="search" placeholder="Search by name or specialty" autocomplete="off" />
+        </label>
+      </div>
+
+      <div id="doctorFilters" class="reveal mt-8 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Filter doctors by department" data-delay="160"></div>
+      <div id="doctorGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <p id="doctorEmpty" class="mt-8 hidden rounded-3xl bg-mist p-8 text-center text-neutral-500">No doctors match that search. Try another name or department.</p>
+    </section>
+
+    <!-- ===================== HEALTH TOOLS ===================== -->
+    <section id="tools" class="container-x section-pad pt-0">
+      <div class="tools reveal">
+        <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+          <div>
+            <p class="eyebrow eyebrow--dark">Free Health Tools</p>
+            <h2 class="section-title mt-4 text-white">Check In on<br />Your Health</h2>
+          </div>
+          <p class="max-w-md text-[15px] leading-relaxed text-neutral-400">
+            Quick calculators to understand your numbers. Results are estimates for general guidance and
+            are not a diagnosis — talk to a doctor about anything that worries you.
+          </p>
+        </div>
+
+        <div class="tool-tabs mt-10" role="tablist" aria-label="Health calculators">
+          <button type="button" role="tab" class="tool-tab is-active" aria-selected="true" aria-controls="tool-bmi" id="tab-bmi">BMI</button>
+          <button type="button" role="tab" class="tool-tab" aria-selected="false" aria-controls="tool-water" id="tab-water" tabindex="-1">Water Intake</button>
+          <button type="button" role="tab" class="tool-tab" aria-selected="false" aria-controls="tool-cal" id="tab-cal" tabindex="-1">Daily Calories</button>
+          <button type="button" role="tab" class="tool-tab" aria-selected="false" aria-controls="tool-hr" id="tab-hr" tabindex="-1">Heart Rate Zones</button>
+        </div>
+
+        <!-- BMI -->
+        <div class="tool-panel" role="tabpanel" id="tool-bmi" aria-labelledby="tab-bmi">
+          <form class="tool-form" data-tool="bmi">
+            <label class="field"><span>Height (cm)</span><input name="height" type="number" min="100" max="230" value="168" required /></label>
+            <label class="field"><span>Weight (kg)</span><input name="weight" type="number" min="25" max="250" value="62" required /></label>
+            <button class="btn-lime btn-ripple" type="submit">Calculate BMI</button>
+          </form>
+          <div class="tool-result" aria-live="polite">
+            <p class="tool-result__label">Your BMI</p>
+            <p class="tool-result__value" data-out="value">22.0</p>
+            <p class="tool-result__tag" data-out="tag">Healthy weight</p>
+            <div class="bmi-scale" aria-hidden="true"><span></span><span></span><span></span><span></span><i data-out="marker"></i></div>
+            <div class="bmi-scale__legend" aria-hidden="true"><span style="left: 46.25%">18.5</span><span style="left: 62.5%">25</span><span style="left: 75%">30</span></div>
+            <p class="tool-result__note" data-out="note">A healthy BMI range is 18.5–24.9 for most adults.</p>
+          </div>
+        </div>
+
+        <!-- Water -->
+        <div class="tool-panel" role="tabpanel" id="tool-water" aria-labelledby="tab-water" hidden>
+          <form class="tool-form" data-tool="water">
+            <label class="field"><span>Weight (kg)</span><input name="weight" type="number" min="25" max="250" value="62" required /></label>
+            <label class="field"><span>Exercise (min / day)</span><input name="exercise" type="number" min="0" max="300" value="30" required /></label>
+            <button class="btn-lime btn-ripple" type="submit">Calculate</button>
+          </form>
+          <div class="tool-result" aria-live="polite">
+            <p class="tool-result__label">Recommended daily water</p>
+            <p class="tool-result__value" data-out="value">2.4 L</p>
+            <p class="tool-result__tag" data-out="tag">About 10 glasses</p>
+            <div class="glasses" data-out="glasses" aria-hidden="true"></div>
+            <p class="tool-result__note">Needs rise in hot weather, during illness, pregnancy and breastfeeding.</p>
+          </div>
+        </div>
+
+        <!-- Calories -->
+        <div class="tool-panel" role="tabpanel" id="tool-cal" aria-labelledby="tab-cal" hidden>
+          <form class="tool-form tool-form--wide" data-tool="cal">
+            <label class="field"><span>Age</span><input name="age" type="number" min="15" max="100" value="30" required /></label>
+            <label class="field"><span>Sex</span><select name="sex"><option value="f">Female</option><option value="m">Male</option></select></label>
+            <label class="field"><span>Height (cm)</span><input name="height" type="number" min="100" max="230" value="168" required /></label>
+            <label class="field"><span>Weight (kg)</span><input name="weight" type="number" min="25" max="250" value="62" required /></label>
+            <label class="field sm:col-span-2"><span>Activity level</span>
+              <select name="activity">
+                <option value="1.2">Mostly sitting</option>
+                <option value="1.375" selected>Light exercise 1–3 days/week</option>
+                <option value="1.55">Moderate exercise 3–5 days/week</option>
+                <option value="1.725">Hard exercise 6–7 days/week</option>
+              </select>
+            </label>
+            <button class="btn-lime btn-ripple sm:col-span-2" type="submit">Calculate calories</button>
+          </form>
+          <div class="tool-result" aria-live="polite">
+            <p class="tool-result__label">To maintain your weight</p>
+            <p class="tool-result__value" data-out="value">2,000 kcal</p>
+            <div class="cal-rows" data-out="rows"></div>
+            <p class="tool-result__note">Estimated with the Mifflin–St Jeor equation.</p>
+          </div>
+        </div>
+
+        <!-- Heart rate -->
+        <div class="tool-panel" role="tabpanel" id="tool-hr" aria-labelledby="tab-hr" hidden>
+          <form class="tool-form" data-tool="hr">
+            <label class="field"><span>Age</span><input name="age" type="number" min="15" max="100" value="30" required /></label>
+            <label class="field"><span>Resting heart rate (bpm)</span><input name="rest" type="number" min="35" max="110" value="65" required /></label>
+            <button class="btn-lime btn-ripple" type="submit">Show my zones</button>
+          </form>
+          <div class="tool-result" aria-live="polite">
+            <p class="tool-result__label">Estimated max heart rate</p>
+            <p class="tool-result__value" data-out="value">190 bpm</p>
+            <div class="hr-zones" data-out="zones"></div>
+            <p class="tool-result__note">Based on the Karvonen method (heart rate reserve).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== APPOINTMENT ===================== -->
+    <section id="appointment" class="container-x section-pad pt-0">
+      <div class="grid gap-10 lg:grid-cols-[1.25fr_1fr]">
+        <div class="booking reveal">
+          <p class="eyebrow">Book an Appointment</p>
+          <h2 class="section-title mt-4">See a Doctor<br />on Your Schedule</h2>
+
+          <form id="bookingForm" class="mt-10 grid gap-5 sm:grid-cols-2" novalidate>
+            <fieldset class="sm:col-span-2">
+              <legend class="field-label">Visit type</legend>
+              <div class="segmented mt-2">
+                <label><input type="radio" name="type" value="In clinic" checked /><span><svg class="ico-sm"><use href="#i-pin"/></svg>In clinic</span></label>
+                <label><input type="radio" name="type" value="Video call" /><span><svg class="ico-sm"><use href="#i-video"/></svg>Video call</span></label>
+              </div>
+            </fieldset>
+
+            <label class="field field--light"><span>Full name</span><input name="name" type="text" autocomplete="name" placeholder="e.g. Ji-woo Park" required /><em class="field-error">Please enter your name.</em></label>
+            <label class="field field--light"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+1 555 0100" required pattern="[0-9+\-() ]{7,}" /><em class="field-error">Please enter a valid phone number.</em></label>
+            <label class="field field--light"><span>Department</span>
+              <select name="dept" id="bkDept" required><option value="">Choose department</option></select>
+              <em class="field-error">Please choose a department.</em>
+            </label>
+            <label class="field field--light"><span>Doctor</span>
+              <select name="doctor" id="bkDoctor"><option value="">First available specialist</option></select>
+            </label>
+            <label class="field field--light sm:col-span-2"><span>Date</span><input name="date" id="bkDate" type="date" required /><em class="field-error">Please pick a date.</em></label>
+
+            <fieldset class="sm:col-span-2">
+              <legend class="field-label">Available times</legend>
+              <div id="bkSlots" class="slots mt-2"></div>
+              <em class="field-error" id="slotError">Please choose a time.</em>
+            </fieldset>
+
+            <label class="field field--light sm:col-span-2"><span>Reason for visit <small class="font-normal text-neutral-400">(optional)</small></span><textarea name="notes" rows="3" placeholder="Briefly describe your symptoms or what you need help with"></textarea></label>
+
+            <div class="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+              <p class="text-xs text-neutral-500">Free cancellation up to 2 hours before your visit.</p>
+              <button type="submit" class="pill-cta btn-ripple">
+                <span class="pill-cta__label">Confirm Booking</span>
+                <span class="arrow-circle" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </button>
+            </div>
+          </form>
+
+          <div id="bookingSuccess" class="booking-success" hidden tabindex="-1">
+            <span class="booking-success__icon"><svg><use href="#i-check"/></svg></span>
+            <h3 class="font-serif text-3xl font-semibold">You're booked!</h3>
+            <p class="mt-2 text-neutral-500" id="bookingSummary"></p>
+            <p class="mt-1 text-sm text-neutral-500">Booking ID: <b id="bookingId" class="text-ink"></b></p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+              <a href="app.html#appointments" class="btn-dark btn-ripple">View in Web App</a>
+              <button type="button" id="bookAnother" class="btn-outline">Book another</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="flex flex-col gap-6">
+          <div class="contact-photo reveal" data-delay="100">
+            <img src="assets/images/consult.jpg" alt="Doctor and patient talking in a bright clinic" loading="lazy" />
+            <div class="contact-photo__card">
+              <p class="text-xs uppercase tracking-wider text-neutral-500">Need help booking?</p>
+              <a href="tel:+18005550123" class="mt-1 block font-serif text-2xl font-semibold">+1 (800) 555-0123</a>
+            </div>
+          </div>
+          <div class="info-card reveal" data-delay="160">
+            <h3 class="font-serif text-xl font-semibold">Opening Hours</h3>
+            <dl class="mt-4 grid grid-cols-2 gap-y-2 text-sm">
+              <dt class="text-neutral-500">Mon – Fri</dt><dd class="text-right font-medium">8:00 – 20:00</dd>
+              <dt class="text-neutral-500">Saturday</dt><dd class="text-right font-medium">9:00 – 18:00</dd>
+              <dt class="text-neutral-500">Sunday</dt><dd class="text-right font-medium">Online only</dd>
+              <dt class="text-neutral-500">Emergency</dt><dd class="text-right font-semibold">24/7</dd>
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== WELLNESS PROGRAMS ===================== -->
+    <section id="programs" class="container-x section-pad pt-0">
       <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
-        <h2 class="reveal section-title">Catalog of Services<br />Through Our App</h2>
-        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500 lg:pt-3" data-delay="100">
-          Our app presents a comprehensive catalog of services that cater to a wide range of needs, all accessible at your
-          fingertips. With our app, you're not just downloading a piece of software; you're unlocking a world of
-          convenience and possibilities.
+        <div>
+          <p class="reveal eyebrow">Wellness Programs</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Healthy Habits,<br />Guided Daily</h2>
+        </div>
+        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500 lg:pt-10" data-delay="120">
+          Prevention is the best medicine. Track your habits in the web app with gentle reminders and
+          monthly reviews from our nutritionists and physiotherapists.
         </p>
       </div>
 
       <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <article class="service-card reveal">
           <div class="service-card__media bg-lime">
-            <img src="assets/images/drink.jpg" alt="Korean woman in sportswear drinking water after a workout" loading="lazy" width="1000" height="1500" style="object-position: 50% 25%;" />
+            <img src="assets/images/drink.jpg" alt="Korean woman in sportswear drinking water after a workout" loading="lazy" style="object-position: 50% 25%;" />
           </div>
           <div class="service-card__head">
-            <h3 class="service-card__title">Drink Tracker</h3>
-            <a href="#download" class="arrow-circle" aria-label="Learn more about Drink Tracker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="service-card__title">Hydration Tracker</h3>
+            <a href="app.html#trackers" class="arrow-circle" aria-label="Open the hydration tracker"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
-          <p class="service-card__text">Monitor your daily water intake effortlessly. Stay on top of your hydration goals and improve your well-being.</p>
+          <p class="service-card__text">Log every glass with one tap and get reminders tuned to your weight and activity.</p>
         </article>
-
         <article class="service-card reveal" data-delay="100">
           <div class="service-card__media bg-mist">
-            <img src="assets/images/food.jpg" alt="Young Korean woman holding a red and a green apple" loading="lazy" width="1000" height="1500" style="object-position: 50% 48%;" />
+            <img src="assets/images/nutrition.jpg" alt="Healthy bowl with eggs, avocado and fresh vegetables" loading="lazy" />
           </div>
           <div class="service-card__head">
-            <h3 class="service-card__title">Food Tracker</h3>
-            <a href="#download" class="arrow-circle" aria-label="Learn more about Food Tracker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="service-card__title">Nutrition Plans</h3>
+            <a href="app.html#trackers" class="arrow-circle" aria-label="Open the meal tracker"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
-          <p class="service-card__text">Take control of your eating habits. Log your meals, track your calories, and make informed choices.</p>
+          <p class="service-card__text">Meal logging and dietitian-built plans for diabetes, heart health and weight goals.</p>
         </article>
-
         <article class="service-card reveal" data-delay="200">
           <div class="service-card__media bg-white">
-            <img src="assets/images/exercise.jpg" alt="Asian woman doing a one-arm dumbbell row in the gym" loading="lazy" width="1000" height="742" style="object-position: 62% 50%;" />
+            <img src="assets/images/exercise.jpg" alt="Asian woman doing a one-arm dumbbell row in the gym" loading="lazy" style="object-position: 62% 50%;" />
           </div>
           <div class="service-card__head">
-            <h3 class="service-card__title">Daily Exercise</h3>
-            <a href="#download" class="arrow-circle" aria-label="Learn more about Daily Exercise"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <h3 class="service-card__title">Active Recovery</h3>
+            <a href="app.html#trackers" class="arrow-circle" aria-label="Open the activity tracker"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
-          <p class="service-card__text">Follow guided routines built for your level, with reminders that keep your streak alive every single day.</p>
+          <p class="service-card__text">Physio-guided routines for back pain, posture and recovery after injury or surgery.</p>
         </article>
       </div>
     </section>
 
-    <!-- ===================== PRICING ===================== -->
-    <section id="pricing" class="container-x section-pad pt-0">
+    <!-- ===================== CHECK-UP PLANS ===================== -->
+    <section id="plans" class="container-x section-pad pt-0">
       <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
-        <h2 class="reveal section-title">Our Health Product<br />Pricing Plan</h2>
-        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500 lg:pt-3" data-delay="100">
-          These pricing plans offer a clear progression from a free day pass to longer memberships, providing options
-          for users with varying health and wellness needs.
+        <div>
+          <p class="reveal eyebrow">Health Check-ups</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Preventive Check-up<br />Packages</h2>
+        </div>
+        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500 lg:pt-10" data-delay="120">
+          Clear, fixed prices with results explained by a doctor. Book in clinic or have samples collected at home.
         </p>
       </div>
 
@@ -324,78 +620,99 @@
         <article class="price-card reveal">
           <div class="price-card__body">
             <span class="price-card__num">01</span>
-            <h3 class="price-card__title">1 Day Pass</h3>
-            <p class="price-card__text">Try every workout, tracker and insight for a full day — no card required.</p>
+            <h3 class="price-card__title">Essential</h3>
+            <ul class="price-card__list">
+              <li>Doctor consultation</li><li>Blood pressure &amp; BMI</li><li>Complete blood count</li><li>Blood sugar (fasting)</li>
+            </ul>
           </div>
           <div class="price-card__bar">
-            <div>
-              <p class="text-xs text-neutral-400">Price start from</p>
-              <p class="font-serif text-2xl font-semibold">Free</p>
-            </div>
-            <a href="#download" class="arrow-circle arrow-circle--lg" aria-label="Choose 1 Day Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <div><p class="text-xs text-neutral-400">Package price</p><p class="font-serif text-2xl font-semibold">$49</p></div>
+            <a href="#appointment" class="arrow-circle arrow-circle--lg" data-book-dept="general" aria-label="Book the Essential check-up"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
-        <article class="price-card reveal" data-delay="100">
+        <article class="price-card price-card--featured reveal" data-delay="100">
+          <span class="price-card__badge">Most popular</span>
           <div class="price-card__body">
             <span class="price-card__num">02</span>
-            <h3 class="price-card__title">1 Week Pass</h3>
-            <p class="price-card__text">Seven days of full access plus a personal plan from one of our trainers.</p>
+            <h3 class="price-card__title">Comprehensive</h3>
+            <ul class="price-card__list">
+              <li>Everything in Essential</li><li>Lipid &amp; thyroid profile</li><li>Liver &amp; kidney function</li><li>ECG + Vitamin D &amp; B12</li>
+            </ul>
           </div>
           <div class="price-card__bar">
-            <div>
-              <p class="text-xs text-neutral-400">Price start from</p>
-              <p class="font-serif text-2xl font-semibold">$20.00</p>
-            </div>
-            <a href="#download" class="arrow-circle arrow-circle--lg" aria-label="Choose 1 Week Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <div><p class="text-xs text-neutral-400">Package price</p><p class="font-serif text-2xl font-semibold">$129</p></div>
+            <a href="#appointment" class="arrow-circle arrow-circle--lg" data-book-dept="general" aria-label="Book the Comprehensive check-up"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
         <article class="price-card reveal" data-delay="200">
           <div class="price-card__body">
             <span class="price-card__num">03</span>
-            <h3 class="price-card__title">1 Month Pass</h3>
-            <p class="price-card__text">Our best value: unlimited access, coaching chat and monthly progress reviews.</p>
+            <h3 class="price-card__title">Heart Care</h3>
+            <ul class="price-card__list">
+              <li>Cardiologist consultation</li><li>ECG &amp; echocardiogram</li><li>Treadmill stress test</li><li>Cholesterol &amp; HbA1c</li>
+            </ul>
           </div>
           <div class="price-card__bar">
-            <div>
-              <p class="text-xs text-neutral-400">Price start from</p>
-              <p class="font-serif text-2xl font-semibold">$15.00</p>
-            </div>
-            <a href="#download" class="arrow-circle arrow-circle--lg" aria-label="Choose 1 Month Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <div><p class="text-xs text-neutral-400">Package price</p><p class="font-serif text-2xl font-semibold">$249</p></div>
+            <a href="#appointment" class="arrow-circle arrow-circle--lg" data-book-dept="cardiology" aria-label="Book the Heart Care check-up"><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- ===================== DOWNLOAD CTA ===================== -->
-    <section id="download" class="container-x pb-24 sm:pb-32">
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section id="reviews" class="container-x section-pad pt-0">
+      <div class="text-center">
+        <p class="reveal eyebrow justify-center">Patient Stories</p>
+        <h2 class="reveal section-title mt-4" data-delay="60">Trusted by 200k+ Patients</h2>
+      </div>
+      <div class="mt-14 grid gap-6 md:grid-cols-3">
+        <figure class="quote-card reveal">
+          <div class="stars" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <blockquote class="mt-5">"I booked a video call at 11pm when my son had a fever. The doctor was kind, quick and the prescription was at our pharmacy by morning."</blockquote>
+          <figcaption class="quote-card__who"><img src="assets/images/avatar-1.jpg" alt="" loading="lazy" /><span><b>Hana Choi</b>Mother of two · Seoul</span></figcaption>
+        </figure>
+        <figure class="quote-card quote-card--dark reveal" data-delay="100">
+          <div class="stars" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <blockquote class="mt-5">"The Heart Care package caught my high cholesterol early. Seeing every result in the web app made it easy to follow my doctor's plan."</blockquote>
+          <figcaption class="quote-card__who"><img src="assets/images/avatar-2.jpg" alt="" loading="lazy" /><span><b>Sora Lim</b>Patient since 2022</span></figcaption>
+        </figure>
+        <figure class="quote-card reveal" data-delay="200">
+          <div class="stars" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <blockquote class="mt-5">"Home lab collection is a game changer. No queues, and my medication reminders mean I never miss a dose anymore."</blockquote>
+          <figcaption class="quote-card__who"><img src="assets/images/avatar-3.jpg" alt="" loading="lazy" /><span><b>Yuna Jang</b>Student · Busan</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== WEB APP CTA ===================== -->
+    <section id="webapp" class="container-x pb-24 sm:pb-32">
       <div class="download-cta reveal">
         <div class="relative z-10 max-w-lg">
-          <h2 class="font-serif text-5xl font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">Available to<br />Download</h2>
-          <p class="mt-5 max-w-sm text-[15px] leading-relaxed text-neutral-400">Track water, meals, workouts and progress from one beautiful dashboard. Free to start.</p>
+          <p class="eyebrow eyebrow--dark">Patient Web App</p>
+          <h2 class="mt-5 font-serif text-5xl font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">Your Health,<br />One Web App</h2>
+          <p class="mt-5 max-w-sm text-[15px] leading-relaxed text-neutral-400">No download needed. Open it in any browser to manage appointments, medicines, reports and daily health trackers.</p>
+          <ul class="mt-6 grid gap-3 text-sm text-neutral-300 sm:grid-cols-2">
+            <li class="flex items-center gap-2"><svg class="tick-lime"><use href="#i-check"/></svg>Appointments &amp; reminders</li>
+            <li class="flex items-center gap-2"><svg class="tick-lime"><use href="#i-check"/></svg>Medication schedule</li>
+            <li class="flex items-center gap-2"><svg class="tick-lime"><use href="#i-check"/></svg>Lab reports &amp; records</li>
+            <li class="flex items-center gap-2"><svg class="tick-lime"><use href="#i-check"/></svg>Water, meals &amp; weight</li>
+          </ul>
           <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a href="#" class="store-btn store-btn--lime btn-ripple" aria-label="Get it on Google Play">
-              <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
-                <path fill="#34A853" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.7-.6-1.2V3.4c0-.5.2-1 .6-1.2z"/>
-                <path fill="#FBBC04" d="M17 8.4 13.4 12 17 15.6l3.9-2.2c1.1-.6 1.1-2.2 0-2.8z"/>
-                <path fill="#4285F4" d="M3.6 2.2c.3-.2.8-.2 1.2 0L17 8.4 13.4 12z"/>
-                <path fill="#EA4335" d="M13.4 12 17 15.6 4.8 21.8c-.4.2-.9.2-1.2 0z"/>
-              </svg>
-              <span class="flex flex-col leading-none"><small>GET IT ON</small><strong>Google Play</strong></span>
+            <a href="app.html" class="store-btn store-btn--lime btn-ripple">
+              <svg class="h-6 w-6" aria-hidden="true"><use href="#i-grid"/></svg>
+              <span class="flex flex-col leading-none"><small>Free · works in your browser</small><strong>Open Web App</strong></span>
             </a>
-            <a href="#" class="store-btn btn-ripple" aria-label="Download on the App Store">
-              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true">
-                <path d="M16.4 12.6c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4.2zM13.9 5.2c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/>
-              </svg>
-              <span class="flex flex-col leading-none"><small>Download on the</small><strong>App Store</strong></span>
+            <a href="app.html#appointments" class="store-btn btn-ripple">
+              <svg class="h-6 w-6" aria-hidden="true"><use href="#i-calendar"/></svg>
+              <span class="flex flex-col leading-none"><small>Already booked?</small><strong>My Appointments</strong></span>
             </a>
           </div>
         </div>
 
-        <!-- Phone mockups -->
         <div class="cta-phones" aria-hidden="true">
-          <!-- Phone 1: hydration + meals -->
           <div class="phone cta-phone cta-phone--back float-a">
             <div class="phone__screen">
               <span class="phone__island"></span>
@@ -404,47 +721,46 @@
                   <img src="assets/images/avatar-1.jpg" alt="" class="scr__avatar" loading="lazy" />
                   <span class="scr__icon">≡</span>
                 </div>
-                <p class="scr__hello">Ready to Live<br />Healthier?</p>
+                <p class="scr__hello">Good morning,<br />Hana</p>
                 <div class="scr__drink">
                   <div>
-                    <p class="scr__drink-title">Drinking<br />Tracker</p>
-                    <p class="scr__drink-sub">Stay hydrated, it's nature's best refreshment.</p>
+                    <p class="scr__drink-title">Next<br />Visit</p>
+                    <p class="scr__drink-sub">Dr. Min-ji Lee · Today 2:30 PM · Video call</p>
                     <span class="scr__go">→</span>
                   </div>
-                  <img src="assets/images/drink.jpg" alt="" loading="lazy" />
+                  <img src="assets/images/doctor-6.jpg" alt="" loading="lazy" />
                 </div>
-                <p class="scr__h">Today's Meal</p>
+                <p class="scr__h">Today's Medicines</p>
                 <div class="scr__meal">
-                  <span class="scr__meal-tag">Breakfast</span>
-                  <div class="scr__meal-row"><i></i><i></i><i></i><b>+</b></div>
-                  <div class="scr__meal-meta"><span>350 kcal</span><span>10 min</span><span>Easy</span></div>
+                  <span class="scr__meal-tag">8:00 AM</span>
+                  <div class="scr__meal-row"><i></i><i></i><i></i><b>✓</b></div>
+                  <div class="scr__meal-meta"><span>Vitamin D</span><span>Omega-3</span><span>Metformin</span></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Phone 2: calorie dashboard -->
           <div class="phone cta-phone cta-phone--front float-b">
             <div class="phone__screen">
               <span class="phone__island"></span>
               <div class="scr scr--flush">
                 <div class="scr__dark">
-                  <div class="scr__top scr__top--dark"><span class="scr__icon scr__icon--dark">‹</span><b>My Track</b><span class="scr__icon scr__icon--dark">≡</span></div>
-                  <div class="scr__date">▣ Sat, 09 September 2026 <span>⌄</span></div>
-                  <p class="scr__gain">You've gained <b>2kg</b> in a month, keep it up!<br /><small>Still need to gain</small></p>
-                  <p class="scr__kcal">950 kcal</p>
+                  <div class="scr__top scr__top--dark"><span class="scr__icon scr__icon--dark">‹</span><b>My Health</b><span class="scr__icon scr__icon--dark">≡</span></div>
+                  <div class="scr__date">▣ Today's vitals <span>⌄</span></div>
+                  <p class="scr__gain">Blood pressure is <b>normal</b><br /><small>Last check 8:10 AM</small></p>
+                  <p class="scr__kcal">118/76</p>
                   <div class="scr__rings">
-                    <div class="ring" style="--p:35; --c:#C7F33A;"><span>35%</span><em>Protein</em></div>
-                    <div class="ring" style="--p:65; --c:#F5D547;"><span>65%</span><em>Carbo</em></div>
-                    <div class="ring" style="--p:65; --c:#FF7A59;"><span>65%</span><em>Fat</em></div>
+                    <div class="ring" style="--p:72; --c:#C7F33A;"><span>72</span><em>BPM</em></div>
+                    <div class="ring" style="--p:98; --c:#7FD4FF;"><span>98%</span><em>SpO₂</em></div>
+                    <div class="ring" style="--p:80; --c:#FF7A59;"><span>7.2h</span><em>Sleep</em></div>
                   </div>
                 </div>
-                <div class="scr__targets-head"><b>My Daily Target</b><small>See All</small></div>
+                <div class="scr__targets-head"><b>My Records</b><small>See All</small></div>
                 <div class="scr__targets">
-                  <div class="tgt tgt--dark"><b>Water</b><small>Total Cons</small><strong>2300 ml</strong></div>
-                  <div class="tgt"><b>Calories</b><small>Total Cons</small><strong>890 kCal</strong></div>
+                  <div class="tgt tgt--dark"><b>Lab Report</b><small>Blood test</small><strong>Normal</strong></div>
+                  <div class="tgt"><b>Water</b><small>Today</small><strong>1.8 L</strong></div>
                   <div class="tgt tgt--orange"><b>Weight</b><small>This week</small><strong>-0.6 kg</strong></div>
-                  <div class="tgt tgt--pink"><b>BPM</b><small>Resting</small><strong>68</strong></div>
+                  <div class="tgt tgt--pink"><b>Glucose</b><small>Fasting</small><strong>92</strong></div>
                 </div>
                 <div class="scr__tabbar"><i></i><i class="on"></i><i></i><i></i></div>
               </div>
@@ -454,65 +770,146 @@
         </div>
       </div>
     </section>
+
+    <!-- ===================== HEALTH TIPS ===================== -->
+    <section id="blog" class="container-x section-pad pt-0">
+      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+        <div>
+          <p class="reveal eyebrow">Health Tips</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Advice From<br />Our Doctors</h2>
+        </div>
+        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500" data-delay="120">Short, practical reads written and reviewed by NEWME Health specialists.</p>
+      </div>
+      <div class="mt-14 grid gap-8 md:grid-cols-3">
+        <article class="post-card reveal">
+          <div class="post-card__media"><img src="assets/images/nutrition.jpg" alt="Colorful healthy meal" loading="lazy" /></div>
+          <p class="post-card__meta"><span class="chip">Nutrition</span>5 min read</p>
+          <h3 class="post-card__title">7 Everyday Foods That Help Lower Blood Pressure</h3>
+          <p class="post-card__text">Simple swaps our cardiologists recommend, from leafy greens to the right kind of salt.</p>
+        </article>
+        <article class="post-card reveal" data-delay="100">
+          <div class="post-card__media"><img src="assets/images/elder-care.jpg" alt="Caregiver holding an older person's hands" loading="lazy" /></div>
+          <p class="post-card__meta"><span class="chip">Family Care</span>4 min read</p>
+          <h3 class="post-card__title">Caring for Ageing Parents: A Practical Checklist</h3>
+          <p class="post-card__text">Medication safety, fall prevention and the check-ups that matter most after 60.</p>
+        </article>
+        <article class="post-card reveal" data-delay="200">
+          <div class="post-card__media"><img src="assets/images/lab.jpg" alt="Laboratory with testing equipment" loading="lazy" /></div>
+          <p class="post-card__meta"><span class="chip">Lab Tests</span>6 min read</p>
+          <h3 class="post-card__title">How to Read Your Blood Test Report</h3>
+          <p class="post-card__text">What CBC, HbA1c and cholesterol numbers really mean — and when to ask your doctor.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="container-x section-pad pt-0">
+      <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+        <div>
+          <p class="reveal eyebrow">FAQ</p>
+          <h2 class="reveal section-title mt-4" data-delay="60">Questions?<br />We're Here.</h2>
+          <p class="reveal mt-6 max-w-sm text-[15px] leading-relaxed text-neutral-500" data-delay="120">Can't find what you need? Our care team replies within an hour.</p>
+          <a href="mailto:care@newme.health" class="reveal link-arrow mt-6" data-delay="160">care@newme.health <svg><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="faq reveal" data-delay="100">
+          <details open>
+            <summary>How do online consultations work?</summary>
+            <p>Book a "Video call" visit, then join from the web app at your appointment time. No downloads needed — it works in any modern browser on phone or computer.</p>
+          </details>
+          <details>
+            <summary>Do you accept health insurance?</summary>
+            <p>Yes. We work with more than 60 insurance providers. Add your policy in the web app and we'll show what's covered before you book.</p>
+          </details>
+          <details>
+            <summary>How quickly will I get my lab results?</summary>
+            <p>Most routine results are ready within 24 hours and appear in the Records section of your web app, with a doctor's note explaining them.</p>
+          </details>
+          <details>
+            <summary>Can I cancel or reschedule an appointment?</summary>
+            <p>Yes, free of charge up to 2 hours before your visit. Open "Appointments" in the web app and choose cancel or reschedule.</p>
+          </details>
+          <details>
+            <summary>Is my medical data secure?</summary>
+            <p>Your records are encrypted in transit and at rest, and only you decide which doctors can see them.</p>
+          </details>
+          <details>
+            <summary>What should I do in an emergency?</summary>
+            <p>Call your local emergency number or our 24/7 line at +1 (800) 555-0199 right away. Do not wait for an online appointment for chest pain, difficulty breathing, signs of stroke or severe bleeding.</p>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ===================== FOOTER ===================== -->
   <footer id="contact" class="border-t border-neutral-200">
     <div class="container-x py-16">
-      <div class="grid gap-12 lg:grid-cols-[1.3fr_3fr_auto]">
+      <div class="grid gap-12 lg:grid-cols-[1.3fr_3fr_1.3fr]">
         <div class="max-w-xs">
-          <a href="#home" class="logo" aria-label="NEWME home"><span class="logo__n">N</span><span>EWME</span></a>
-          <p class="mt-6 text-sm leading-relaxed text-neutral-500">We're dedicated to helping you achieve your health goals, providing you with the tools and support you need.</p>
+          <a href="#home" class="logo" aria-label="NEWME Health home"><span class="logo__n">N</span><span>EWME</span><span class="logo__tag">Health</span></a>
+          <p class="mt-6 text-sm leading-relaxed text-neutral-500">Trusted doctors, connected digital care and a patient web app that keeps your whole health story in one place.</p>
+          <ul class="mt-6 space-y-3 text-sm">
+            <li class="flex items-center gap-2"><svg class="ico-sm"><use href="#i-pin"/></svg>221 Wellness Ave, Seoul</li>
+            <li class="flex items-center gap-2"><svg class="ico-sm"><use href="#i-phone"/></svg><a href="tel:+18005550123">+1 (800) 555-0123</a></li>
+            <li class="flex items-center gap-2"><svg class="ico-sm"><use href="#i-mail"/></svg><a href="mailto:care@newme.health">care@newme.health</a></li>
+          </ul>
         </div>
 
         <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          <nav aria-label="About">
-            <h3 class="footer-h">About</h3>
+          <nav aria-label="Care">
+            <h3 class="footer-h">Care</h3>
             <ul class="footer-list">
-              <li><a href="#about">Our Journey</a></li>
-              <li><a href="#about">Our Team</a></li>
-              <li><a href="#about">Testimonial</a></li>
-              <li><a href="#about">Career</a></li>
-            </ul>
-          </nav>
-          <nav aria-label="Our Product">
-            <h3 class="footer-h">Our Product</h3>
-            <ul class="footer-list">
-              <li><a href="#features">Product Overview</a></li>
-              <li><a href="#services">How it Works</a></li>
-              <li><a href="#pricing">Price</a></li>
+              <li><a href="#departments">Departments</a></li>
+              <li><a href="#doctors">Find a Doctor</a></li>
+              <li><a href="#appointment">Book Appointment</a></li>
+              <li><a href="#plans">Check-ups</a></li>
             </ul>
           </nav>
           <nav aria-label="Services">
             <h3 class="footer-h">Services</h3>
             <ul class="footer-list">
-              <li><a href="#services">Offerings</a></li>
-              <li><a href="#services">Process</a></li>
-              <li><a href="#services">Case Studies</a></li>
+              <li><a href="#services">Telemedicine</a></li>
+              <li><a href="#services">Lab Tests</a></li>
+              <li><a href="#services">E-Prescriptions</a></li>
+              <li><a href="#services">Emergency</a></li>
             </ul>
           </nav>
-          <nav aria-label="Contact">
-            <h3 class="footer-h">Contact Us</h3>
+          <nav aria-label="Web App">
+            <h3 class="footer-h">Web App</h3>
             <ul class="footer-list">
-              <li><a href="mailto:hello@newme.app">Contact Form</a></li>
-              <li><a href="#contact">Relation Map</a></li>
+              <li><a href="app.html">Dashboard</a></li>
+              <li><a href="app.html#appointments">Appointments</a></li>
+              <li><a href="app.html#medications">Medications</a></li>
+              <li><a href="app.html#records">Records</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Company">
+            <h3 class="footer-h">Company</h3>
+            <ul class="footer-list">
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#reviews">Patient Stories</a></li>
+              <li><a href="#blog">Health Tips</a></li>
+              <li><a href="#faq">FAQ</a></li>
             </ul>
           </nav>
         </div>
 
-        <div class="flex flex-col items-start gap-8 lg:items-end">
-          <a href="#download" class="pill-cta btn-ripple">
-            <span class="pill-cta__label">Join Us Now</span>
-            <span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-          <div class="flex gap-3">
-            <a href="#" class="social" aria-label="NEWME on Instagram">
+        <div>
+          <h3 class="footer-h">Health tips in your inbox</h3>
+          <form id="newsletter" class="newsletter">
+            <label class="sr-only" for="nlEmail">Email address</label>
+            <input id="nlEmail" type="email" placeholder="Your email" required autocomplete="email" />
+            <button type="submit" class="arrow-circle arrow-circle--lg" aria-label="Subscribe"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </form>
+          <p id="nlMsg" class="mt-2 min-h-[1.25rem] text-xs text-neutral-500" aria-live="polite"></p>
+          <div class="mt-4 flex gap-3">
+            <a href="#" class="social" aria-label="NEWME Health on Instagram">
               <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="dot"/></svg>
             </a>
-            <a href="#" class="social" aria-label="NEWME on Facebook">
+            <a href="#" class="social" aria-label="NEWME Health on Facebook">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8z" class="solid"/></svg>
             </a>
-            <a href="#" class="social" aria-label="NEWME on X">
+            <a href="#" class="social" aria-label="NEWME Health on X">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg>
             </a>
           </div>
@@ -520,25 +917,22 @@
       </div>
 
       <div class="mt-14 flex flex-col-reverse items-start justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center">
-        <p>© <span id="year">2026</span> newme.co. All Rights Reserved.</p>
-        <p>Photos: Bruce Mars &amp; Cathy Pham via Unsplash · RDNE Stock project &amp; others via Pexels</p>
+        <p>© <span id="year">2026</span> NEWME Health. All rights reserved. Information on this site is not a substitute for professional medical advice.</p>
+        <p>Photos via Unsplash &amp; Pexels</p>
       </div>
     </div>
   </footer>
 
-  <!-- Video modal -->
-  <div id="videoModal" class="modal" role="dialog" aria-modal="true" aria-label="Workout preview" hidden>
-    <div class="modal__backdrop" data-close></div>
-    <div class="modal__box">
-      <button type="button" class="modal__close" data-close aria-label="Close video">✕</button>
-      <div class="modal__video">
-        <span class="play-btn__core play-btn__core--xl" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-        <p class="mt-6 font-serif text-2xl font-semibold text-white">30+ Home Workouts</p>
-        <p class="mt-2 text-sm text-neutral-400">Video preview coming soon — download the app to start training.</p>
-      </div>
-    </div>
+  <!-- Mobile quick actions -->
+  <div class="mobile-bar lg:hidden">
+    <a href="tel:+18005550199" class="mobile-bar__btn mobile-bar__btn--sos"><svg class="ico-sm"><use href="#i-phone"/></svg>Emergency</a>
+    <a href="#appointment" class="mobile-bar__btn"><svg class="ico-sm"><use href="#i-calendar"/></svg>Book</a>
+    <a href="app.html" class="mobile-bar__btn mobile-bar__btn--lime"><svg class="ico-sm"><use href="#i-grid"/></svg>Web App</a>
   </div>
 
+  <button type="button" id="toTop" class="to-top" aria-label="Back to top" hidden><svg><use href="#i-arrow" transform="rotate(-90 12 12)"/></svg></button>
+
+  <script src="data.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 </html>
