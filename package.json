@@ -1,0 +1,15 @@
+{
+  "name": "newme-health",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NEWME Health website and patient web app.",
+  "scripts": {
+    "build:css": "npm run build:base && npm run build:utilities",
+    "build:base": "tailwindcss -c tailwind.config.js -i ./src/tailwind-base.css -o ./assets/css/base.css --minify",
+    "build:utilities": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./assets/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -c tailwind.config.js -i ./src/tailwind.css -o ./assets/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.16"
+  }
+}

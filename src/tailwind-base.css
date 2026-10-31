@@ -1,0 +1,2 @@
+/* Tailwind preflight (reset). Loaded first, before style.css / app.css. */
+@tailwind base;

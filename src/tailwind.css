@@ -1,0 +1,4 @@
+/* Tailwind components and utilities. Loaded last, so utility classes
+   (lg:hidden, spacing, etc.) override component defaults in style.css. */
+@tailwind components;
+@tailwind utilities;
