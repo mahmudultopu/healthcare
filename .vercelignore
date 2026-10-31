@@ -8,3 +8,7 @@ README.md
 SECURITY.md
 .editorconfig
 .gitattributes
+
+# Repository documentation and screenshots
+docs
+.github

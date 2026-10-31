@@ -12,3 +12,14 @@ npm-debug.log*
 
 # Vercel
 .vercel
+
+# Secrets and local environment (never commit these)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+secrets/

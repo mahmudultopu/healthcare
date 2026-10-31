@@ -5,6 +5,36 @@ Marketing website and patient portal for **NEWME Health**, a multi-specialty cli
 **Live site:** [healthcare-theta-puce.vercel.app](https://healthcare-theta-puce.vercel.app)  
 **Patient portal:** [healthcare-theta-puce.vercel.app/app](https://healthcare-theta-puce.vercel.app/app)
 
+![NEWME Health website](docs/screenshots/website-hero.png)
+
+---
+
+## Screenshots
+
+### Website
+
+| Doctor directory | Health tools |
+| ---------------- | ------------ |
+| ![Doctor directory with search and department filters](docs/screenshots/website-doctors.png) | ![BMI, water, calorie and heart-rate calculators](docs/screenshots/website-health-tools.png) |
+
+| Appointment booking | Patient portal |
+| ------------------- | -------------- |
+| ![Appointment booking with time slots](docs/screenshots/website-booking.png) | ![Patient portal call to action](docs/screenshots/website-portal-cta.png) |
+
+![Dark footer with closing call to action](docs/screenshots/website-footer.png)
+
+### Patient portal
+
+![Glass dashboard with body overview, daily targets, activity cards and meal plan](docs/screenshots/portal-dashboard.png)
+
+| Appointments | Health trackers |
+| ------------ | --------------- |
+| ![Appointments view](docs/screenshots/portal-appointments.png) | ![Water, sleep, weight, vitals and food trackers](docs/screenshots/portal-trackers.png) |
+
+### Mobile
+
+![Website and patient portal on mobile](docs/screenshots/mobile.png)
+
 ---
 
 ## Features
@@ -61,6 +91,7 @@ No third-party scripts, trackers or CDNs are loaded in the browser.
 │   ├── css/              # Compiled Tailwind output (base.css, tailwind.css)
 │   ├── fonts/            # Self-hosted WOFF2 fonts
 │   └── images/           # Photography, icons and social preview image
+├── docs/screenshots/     # README screenshots (not deployed)
 ├── src/                  # Tailwind entry files
 ├── vercel.json           # Security headers, caching and clean URLs
 ├── tailwind.config.js
