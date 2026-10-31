@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEWME — Your Health, Our App</title>
+  <meta name="description" content="NEWME is your all-in-one health and fitness app: home workouts, drink and food tracking, real-time insights and expert trainers. Available on iOS and Android." />
+  <meta name="theme-color" content="#0B0D0C" />
+  <meta property="og:title" content="NEWME — Your Health, Our App" />
+  <meta property="og:description" content="Achieve your health goals with workouts, tracking and expert support in one app." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/hero-model-portrait.jpg" />
+
+  <!-- Fonts: editorial serif for headings, Inter for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind (Play CDN) + theme tokens -->
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F5F5F3',
+            ink: '#0B0D0C',
+            lime: '#C7F33A',
+            mist: '#ECECE9',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          borderRadius: {
+            '4xl': '2rem',
+            '5xl': '2.5rem',
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="preload" as="image" href="assets/images/hero-model-portrait.jpg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-paper font-sans text-ink antialiased">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header id="navbar" class="navbar sticky top-0 z-50">
+    <nav class="container-x flex h-20 items-center justify-between" aria-label="Primary">
+      <a href="#home" class="logo" aria-label="NEWME home">
+        <span class="logo__n">N</span><span>EWME</span>
+      </a>
+
+      <ul class="hidden items-center gap-10 text-sm font-medium md:flex">
+        <li><a href="#home" class="nav-link is-active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#download" class="nav-link">Download</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+      </ul>
+
+      <a href="#contact" class="btn-dark btn-ripple hidden md:inline-flex">Contact Us</a>
+
+      <!-- Mobile hamburger -->
+      <button id="menuToggle" class="hamburger md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu panel -->
+    <div id="mobileMenu" class="mobile-menu md:hidden" hidden>
+      <ul class="container-x flex flex-col gap-1 pb-6 pt-2 text-lg font-medium">
+        <li><a href="#home" class="mobile-link">Home</a></li>
+        <li><a href="#about" class="mobile-link">About</a></li>
+        <li><a href="#features" class="mobile-link">Features</a></li>
+        <li><a href="#download" class="mobile-link">Download</a></li>
+        <li><a href="#pricing" class="mobile-link">Pricing</a></li>
+        <li class="pt-3"><a href="#contact" class="btn-dark btn-ripple w-full justify-center mobile-link">Contact Us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section id="home" class="container-x pb-16 pt-8 lg:pt-12">
+      <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+
+        <!-- Left column -->
+        <div class="flex flex-col">
+          <h1 class="reveal font-serif text-[3.1rem] font-semibold leading-[0.98] tracking-tight sm:text-7xl xl:text-[5.6rem]">
+            Your Health,<br />Our App<span class="hero-dot" aria-hidden="true"></span>
+          </h1>
+
+          <p class="reveal mt-6 max-w-md text-[15px] leading-relaxed text-neutral-500" data-delay="100">
+            We're dedicated to helping you achieve your health goals, providing tools,
+            support, and resources for a healthier life.
+          </p>
+
+          <div class="reveal mt-8" data-delay="200">
+            <a href="#download" class="pill-cta btn-ripple">
+              <span class="pill-cta__label">Join Us Now</span>
+              <span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+          </div>
+
+          <!-- Download card -->
+          <article class="reveal download-card mt-12" data-delay="300" aria-labelledby="dl-title">
+            <div class="flex items-start gap-5">
+              <div class="qr" aria-label="QR code to download the NEWME app" role="img">
+                <canvas id="qrCanvas" width="168" height="168"></canvas>
+              </div>
+              <div class="flex-1">
+                <h2 id="dl-title" class="font-serif text-xl font-semibold text-white sm:text-2xl">Download Our App</h2>
+                <p class="mt-2 text-sm leading-relaxed text-neutral-400">Scan code, get 3 months free access on our platform</p>
+              </div>
+              <a href="#download" class="arrow-circle arrow-circle--lg shrink-0" aria-label="Go to download section">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+
+            <div class="mt-7 flex flex-wrap items-end justify-between gap-5">
+              <div class="flex gap-10">
+                <div>
+                  <p class="font-serif text-3xl font-semibold text-white"><span data-count="200">0</span>k</p>
+                  <p class="mt-1 text-sm text-neutral-400">Connected Users</p>
+                </div>
+                <div>
+                  <p class="font-serif text-3xl font-semibold text-white"><span data-count="132">0</span></p>
+                  <p class="mt-1 text-sm text-neutral-400">Skilled Trainers</p>
+                </div>
+              </div>
+              <div class="avatars" aria-label="Some of our community members">
+                <img src="assets/images/avatar-1.jpg" alt="" width="44" height="44" loading="lazy" />
+                <img src="assets/images/avatar-2.jpg" alt="" width="44" height="44" loading="lazy" />
+                <img src="assets/images/avatar-3.jpg" alt="" width="44" height="44" loading="lazy" />
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Right column: model + floating cards -->
+        <div class="hero-visual reveal" data-delay="150">
+          <div class="hero-visual__frame">
+            <img src="assets/images/hero-model-portrait.jpg"
+                 alt="Smiling Korean fitness model lifting a dumbbell during a workout class"
+                 width="700" height="933" fetchpriority="high" class="hero-visual__img" />
+            <div class="hero-visual__fade" aria-hidden="true"></div>
+          </div>
+
+          <!-- Floating app card -->
+          <a href="#download" class="app-card float-slow" aria-label="Our app is available on iOS and Android. Check it out">
+            <div class="app-card__phones" aria-hidden="true">
+              <div class="phone phone--dark" style="--pw: 64px; transform: rotate(-8deg) translateX(6px);">
+                <div class="phone__screen phone__screen--dark"><span class="phone__island"></span>
+                  <div class="mini-ring"></div>
+                </div>
+              </div>
+              <div class="phone" style="--pw: 70px; margin-left: -18px;">
+                <div class="phone__screen"><span class="phone__island"></span>
+                  <div class="mini-card"></div>
+                  <div class="mini-line"></div><div class="mini-line w-60"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col justify-between gap-3">
+              <p class="text-[13px] font-medium leading-snug sm:text-sm">Our App is available on iOS and Android</p>
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-serif text-sm font-semibold">Check it Out</span>
+                <span class="arrow-circle arrow-circle--dark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Video card -->
+          <div class="video-card">
+            <button type="button" class="play-btn" id="playBtn" aria-label="Play workout video">
+              <span class="play-btn__ring" aria-hidden="true"></span>
+              <span class="play-btn__core" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="text-sm font-medium">Play Video</span>
+            </button>
+            <p class="mt-auto text-xl font-semibold leading-tight tracking-tight sm:text-2xl">30+ Home Workout<br />Video Collections</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== STATS ===================== -->
+    <section id="about" class="container-x" aria-label="NEWME in numbers">
+      <div class="stats reveal">
+        <div class="stat">
+          <p class="stat__num"><span data-count="27">0</span></p>
+          <p class="stat__label">Years experience in health industries by experts</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num"><span data-count="148">0</span></p>
+          <p class="stat__label">Branch offices giving you the best services worldwide</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num"><span data-count="1000">0</span></p>
+          <p class="stat__label">New users log in to our app every single day</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num"><span data-count="120">0</span>k+</p>
+          <p class="stat__label">Users download our app every single day</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section id="features" class="container-x section-pad">
+      <div class="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <h2 class="reveal section-title">Best Features<br />We Offer for You</h2>
+        <div class="reveal flex max-w-md flex-col gap-6 lg:items-end" data-delay="100">
+          <p class="text-[15px] leading-relaxed text-neutral-500">
+            We're dedicated to helping you achieve your health goals, providing you with the tools, support, and resources.
+          </p>
+          <div class="flex items-center gap-4">
+            <button type="button" class="slider-btn" id="featPrev" aria-label="Previous features">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+            </button>
+            <button type="button" class="slider-btn slider-btn--lime" id="featNext" aria-label="Next features">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-track mt-14" id="featureTrack" tabindex="0" aria-label="Feature cards, scroll horizontally">
+        <article class="feature-card reveal">
+          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 30c0-6 6-6 8-11s-2-9 4-11 9 3 8 8-6 6-2 10 12-2 14 4-3 11-9 11-8-6-12-6-11 2-11-5zm0 0h10"/></svg>
+          <h3 class="feature-card__title">Tracking</h3>
+          <p class="feature-card__text">With our tracking feature, you can follow workouts, steps, heart rate, sleep and more — all synced in one place so nothing slips.</p>
+        </article>
+
+        <article class="feature-card reveal" data-delay="100">
+          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="8" width="36" height="32" rx="3"/><path d="M6 15h36M10 11.5h2M14 11.5h2M11 34l8-9 6 5 6-8 6 7"/></svg>
+          <h3 class="feature-card__title">Insight</h3>
+          <p class="feature-card__text">Clear weekly reports turn your data into simple, personal insights, so you know exactly what's working and what to adjust next.</p>
+        </article>
+
+        <article class="feature-card feature-card--accent reveal" data-delay="200">
+          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M20 4h8M24 4v5"/><circle cx="24" cy="27" r="16" class="fill"/><path d="M12 27h6l3-6 5 12 3-6h7" class="cut"/></svg>
+          <h3 class="feature-card__title">Real Time</h3>
+          <p class="feature-card__text">Live heart-rate zones, calorie burn and pacing feedback while you train, so every session hits the right intensity.</p>
+          <a href="#services" class="discover-btn btn-ripple">Discover More</a>
+        </article>
+
+        <article class="feature-card reveal" data-delay="300">
+          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="16" r="7"/><path d="M10 42c0-8 6-13 14-13s14 5 14 13M34 8l4-3M38 14h5"/></svg>
+          <h3 class="feature-card__title">Coaching</h3>
+          <p class="feature-card__text">Chat with 132 certified trainers who build plans around your schedule, goals and fitness level — and keep you accountable.</p>
+        </article>
+
+        <article class="feature-card reveal" data-delay="400">
+          <svg class="feature-card__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M30 8a16 16 0 1 0 10 26A13 13 0 0 1 30 8z"/><path d="M34 14h6l-6 7h6"/></svg>
+          <h3 class="feature-card__title">Sleep</h3>
+          <p class="feature-card__text">Understand your recovery with sleep stages, bedtime reminders and gentle wind-down routines for deeper rest.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES ===================== -->
+    <section id="services" class="container-x section-pad pt-0">
+      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
+        <h2 class="reveal section-title">Catalog of Services<br />Through Our App</h2>
+        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500 lg:pt-3" data-delay="100">
+          Our app presents a comprehensive catalog of services that cater to a wide range of needs, all accessible at your
+          fingertips. With our app, you're not just downloading a piece of software; you're unlocking a world of
+          convenience and possibilities.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="service-card reveal">
+          <div class="service-card__media bg-lime">
+            <img src="assets/images/drink.jpg" alt="Korean woman in sportswear drinking water after a workout" loading="lazy" width="1000" height="1500" style="object-position: 50% 25%;" />
+          </div>
+          <div class="service-card__head">
+            <h3 class="service-card__title">Drink Tracker</h3>
+            <a href="#download" class="arrow-circle" aria-label="Learn more about Drink Tracker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="service-card__text">Monitor your daily water intake effortlessly. Stay on top of your hydration goals and improve your well-being.</p>
+        </article>
+
+        <article class="service-card reveal" data-delay="100">
+          <div class="service-card__media bg-mist">
+            <img src="assets/images/food.jpg" alt="Young Korean woman holding a red and a green apple" loading="lazy" width="1000" height="1500" style="object-position: 50% 48%;" />
+          </div>
+          <div class="service-card__head">
+            <h3 class="service-card__title">Food Tracker</h3>
+            <a href="#download" class="arrow-circle" aria-label="Learn more about Food Tracker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="service-card__text">Take control of your eating habits. Log your meals, track your calories, and make informed choices.</p>
+        </article>
+
+        <article class="service-card reveal" data-delay="200">
+          <div class="service-card__media bg-white">
+            <img src="assets/images/exercise.jpg" alt="Asian woman doing a one-arm dumbbell row in the gym" loading="lazy" width="1000" height="742" style="object-position: 62% 50%;" />
+          </div>
+          <div class="service-card__head">
+            <h3 class="service-card__title">Daily Exercise</h3>
+            <a href="#download" class="arrow-circle" aria-label="Learn more about Daily Exercise"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="service-card__text">Follow guided routines built for your level, with reminders that keep your streak alive every single day.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== PRICING ===================== -->
+    <section id="pricing" class="container-x section-pad pt-0">
+      <div class="flex flex-col justify-between gap-6 lg:flex-row lg:items-start">
+        <h2 class="reveal section-title">Our Health Product<br />Pricing Plan</h2>
+        <p class="reveal max-w-md text-[15px] leading-relaxed text-neutral-500 lg:pt-3" data-delay="100">
+          These pricing plans offer a clear progression from a free day pass to longer memberships, providing options
+          for users with varying health and wellness needs.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="price-card reveal">
+          <div class="price-card__body">
+            <span class="price-card__num">01</span>
+            <h3 class="price-card__title">1 Day Pass</h3>
+            <p class="price-card__text">Try every workout, tracker and insight for a full day — no card required.</p>
+          </div>
+          <div class="price-card__bar">
+            <div>
+              <p class="text-xs text-neutral-400">Price start from</p>
+              <p class="font-serif text-2xl font-semibold">Free</p>
+            </div>
+            <a href="#download" class="arrow-circle arrow-circle--lg" aria-label="Choose 1 Day Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="price-card reveal" data-delay="100">
+          <div class="price-card__body">
+            <span class="price-card__num">02</span>
+            <h3 class="price-card__title">1 Week Pass</h3>
+            <p class="price-card__text">Seven days of full access plus a personal plan from one of our trainers.</p>
+          </div>
+          <div class="price-card__bar">
+            <div>
+              <p class="text-xs text-neutral-400">Price start from</p>
+              <p class="font-serif text-2xl font-semibold">$20.00</p>
+            </div>
+            <a href="#download" class="arrow-circle arrow-circle--lg" aria-label="Choose 1 Week Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+
+        <article class="price-card reveal" data-delay="200">
+          <div class="price-card__body">
+            <span class="price-card__num">03</span>
+            <h3 class="price-card__title">1 Month Pass</h3>
+            <p class="price-card__text">Our best value: unlimited access, coaching chat and monthly progress reviews.</p>
+          </div>
+          <div class="price-card__bar">
+            <div>
+              <p class="text-xs text-neutral-400">Price start from</p>
+              <p class="font-serif text-2xl font-semibold">$15.00</p>
+            </div>
+            <a href="#download" class="arrow-circle arrow-circle--lg" aria-label="Choose 1 Month Pass"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== DOWNLOAD CTA ===================== -->
+    <section id="download" class="container-x pb-24 sm:pb-32">
+      <div class="download-cta reveal">
+        <div class="relative z-10 max-w-lg">
+          <h2 class="font-serif text-5xl font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">Available to<br />Download</h2>
+          <p class="mt-5 max-w-sm text-[15px] leading-relaxed text-neutral-400">Track water, meals, workouts and progress from one beautiful dashboard. Free to start.</p>
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a href="#" class="store-btn store-btn--lime btn-ripple" aria-label="Get it on Google Play">
+              <svg viewBox="0 0 24 24" class="h-7 w-7" aria-hidden="true">
+                <path fill="#34A853" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.7-.6-1.2V3.4c0-.5.2-1 .6-1.2z"/>
+                <path fill="#FBBC04" d="M17 8.4 13.4 12 17 15.6l3.9-2.2c1.1-.6 1.1-2.2 0-2.8z"/>
+                <path fill="#4285F4" d="M3.6 2.2c.3-.2.8-.2 1.2 0L17 8.4 13.4 12z"/>
+                <path fill="#EA4335" d="M13.4 12 17 15.6 4.8 21.8c-.4.2-.9.2-1.2 0z"/>
+              </svg>
+              <span class="flex flex-col leading-none"><small>GET IT ON</small><strong>Google Play</strong></span>
+            </a>
+            <a href="#" class="store-btn btn-ripple" aria-label="Download on the App Store">
+              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true">
+                <path d="M16.4 12.6c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4.2zM13.9 5.2c.7-.9 1.2-2 1-3.2-1 .1-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.3-.6 3.1-1.5z"/>
+              </svg>
+              <span class="flex flex-col leading-none"><small>Download on the</small><strong>App Store</strong></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Phone mockups -->
+        <div class="cta-phones" aria-hidden="true">
+          <!-- Phone 1: hydration + meals -->
+          <div class="phone cta-phone cta-phone--back float-a">
+            <div class="phone__screen">
+              <span class="phone__island"></span>
+              <div class="scr">
+                <div class="scr__top">
+                  <img src="assets/images/avatar-1.jpg" alt="" class="scr__avatar" loading="lazy" />
+                  <span class="scr__icon">≡</span>
+                </div>
+                <p class="scr__hello">Ready to Live<br />Healthier?</p>
+                <div class="scr__drink">
+                  <div>
+                    <p class="scr__drink-title">Drinking<br />Tracker</p>
+                    <p class="scr__drink-sub">Stay hydrated, it's nature's best refreshment.</p>
+                    <span class="scr__go">→</span>
+                  </div>
+                  <img src="assets/images/drink.jpg" alt="" loading="lazy" />
+                </div>
+                <p class="scr__h">Today's Meal</p>
+                <div class="scr__meal">
+                  <span class="scr__meal-tag">Breakfast</span>
+                  <div class="scr__meal-row"><i></i><i></i><i></i><b>+</b></div>
+                  <div class="scr__meal-meta"><span>350 kcal</span><span>10 min</span><span>Easy</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone 2: calorie dashboard -->
+          <div class="phone cta-phone cta-phone--front float-b">
+            <div class="phone__screen">
+              <span class="phone__island"></span>
+              <div class="scr scr--flush">
+                <div class="scr__dark">
+                  <div class="scr__top scr__top--dark"><span class="scr__icon scr__icon--dark">‹</span><b>My Track</b><span class="scr__icon scr__icon--dark">≡</span></div>
+                  <div class="scr__date">▣ Sat, 09 September 2026 <span>⌄</span></div>
+                  <p class="scr__gain">You've gained <b>2kg</b> in a month, keep it up!<br /><small>Still need to gain</small></p>
+                  <p class="scr__kcal">950 kcal</p>
+                  <div class="scr__rings">
+                    <div class="ring" style="--p:35; --c:#C7F33A;"><span>35%</span><em>Protein</em></div>
+                    <div class="ring" style="--p:65; --c:#F5D547;"><span>65%</span><em>Carbo</em></div>
+                    <div class="ring" style="--p:65; --c:#FF7A59;"><span>65%</span><em>Fat</em></div>
+                  </div>
+                </div>
+                <div class="scr__targets-head"><b>My Daily Target</b><small>See All</small></div>
+                <div class="scr__targets">
+                  <div class="tgt tgt--dark"><b>Water</b><small>Total Cons</small><strong>2300 ml</strong></div>
+                  <div class="tgt"><b>Calories</b><small>Total Cons</small><strong>890 kCal</strong></div>
+                  <div class="tgt tgt--orange"><b>Weight</b><small>This week</small><strong>-0.6 kg</strong></div>
+                  <div class="tgt tgt--pink"><b>BPM</b><small>Resting</small><strong>68</strong></div>
+                </div>
+                <div class="scr__tabbar"><i></i><i class="on"></i><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="cta-phones__shadow"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="contact" class="border-t border-neutral-200">
+    <div class="container-x py-16">
+      <div class="grid gap-12 lg:grid-cols-[1.3fr_3fr_auto]">
+        <div class="max-w-xs">
+          <a href="#home" class="logo" aria-label="NEWME home"><span class="logo__n">N</span><span>EWME</span></a>
+          <p class="mt-6 text-sm leading-relaxed text-neutral-500">We're dedicated to helping you achieve your health goals, providing you with the tools and support you need.</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <nav aria-label="About">
+            <h3 class="footer-h">About</h3>
+            <ul class="footer-list">
+              <li><a href="#about">Our Journey</a></li>
+              <li><a href="#about">Our Team</a></li>
+              <li><a href="#about">Testimonial</a></li>
+              <li><a href="#about">Career</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Our Product">
+            <h3 class="footer-h">Our Product</h3>
+            <ul class="footer-list">
+              <li><a href="#features">Product Overview</a></li>
+              <li><a href="#services">How it Works</a></li>
+              <li><a href="#pricing">Price</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Services">
+            <h3 class="footer-h">Services</h3>
+            <ul class="footer-list">
+              <li><a href="#services">Offerings</a></li>
+              <li><a href="#services">Process</a></li>
+              <li><a href="#services">Case Studies</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Contact">
+            <h3 class="footer-h">Contact Us</h3>
+            <ul class="footer-list">
+              <li><a href="mailto:hello@newme.app">Contact Form</a></li>
+              <li><a href="#contact">Relation Map</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="flex flex-col items-start gap-8 lg:items-end">
+          <a href="#download" class="pill-cta btn-ripple">
+            <span class="pill-cta__label">Join Us Now</span>
+            <span class="arrow-circle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+          <div class="flex gap-3">
+            <a href="#" class="social" aria-label="NEWME on Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="dot"/></svg>
+            </a>
+            <a href="#" class="social" aria-label="NEWME on Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v7h4v-7h3l1-4h-4V8z" class="solid"/></svg>
+            </a>
+            <a href="#" class="social" aria-label="NEWME on X">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-col-reverse items-start justify-between gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center">
+        <p>© <span id="year">2026</span> newme.co. All Rights Reserved.</p>
+        <p>Photos: Bruce Mars &amp; Cathy Pham via Unsplash · RDNE Stock project &amp; others via Pexels</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Video modal -->
+  <div id="videoModal" class="modal" role="dialog" aria-modal="true" aria-label="Workout preview" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__box">
+      <button type="button" class="modal__close" data-close aria-label="Close video">✕</button>
+      <div class="modal__video">
+        <span class="play-btn__core play-btn__core--xl" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        <p class="mt-6 font-serif text-2xl font-semibold text-white">30+ Home Workouts</p>
+        <p class="mt-2 text-sm text-neutral-400">Video preview coming soon — download the app to start training.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
